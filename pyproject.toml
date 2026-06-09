@@ -1,0 +1,27 @@
+[project]
+name = "old-catchall-importer"
+version = "0.1.0"
+description = "One-off scripts for importing old catchall data"
+requires-python = ">=3.14"
+dependencies = [
+    "sqlacodegen",
+    "sqlalchemy",
+    "psycopg2-binary",
+    "click",
+    "pyyaml",
+
+    "flask",
+    "requests"
+]
+
+[project.scripts]
+catchall-export = "export_from_old_db.main:cli"
+
+[dependency-groups]
+dev = []
+
+[tool.setuptools]
+packages = ["export_from_old_db", "import_to_new_repo"]
+
+[tool.ruff]
+target-version = "py311"

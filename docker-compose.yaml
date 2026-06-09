@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: catchall
+      POSTGRES_PASSWORD: catchall
+      POSTGRES_DB: catchall
+    ports:
+      - "5832:5432"
+    volumes:
+      - catchall_postgres_data:/var/lib/postgresql
+
+volumes:
+  catchall_postgres_data:
