@@ -54,8 +54,6 @@ def export_users(session):
             user_roles.append("submitter")
         all_eppns.update((identity.id for identity in user.oauthclient_useridentity))
         all_emails.add(user.email.lower())
-        if not user_roles and not user_communities:
-            continue
 
         user_data = {
             "id": user.id,

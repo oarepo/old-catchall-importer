@@ -30,6 +30,7 @@ up in plain language in CONFLICTS.md (same folder).
 
 Connection details are abstracted away in db.py.
 """
+
 from __future__ import annotations
 
 import copy
@@ -45,34 +46,47 @@ from typing import Any
 
 import langcodes
 from marshmallow import ValidationError
-from marshmallow_utils.fields import SanitizedUnicode, EDTFDateString
-
-
+from marshmallow_utils.fields import EDTFDateString, SanitizedUnicode
 
 # --------------------------------------------------------------------------- #
 # mapping tables (loaded once, at import time, from cwd-relative paths)
 # --------------------------------------------------------------------------- #
 
-MAPPED_VOCABS = ("contributorsroles", "relationtypes", "languages", "licenses",
-                 "resourcetypes", "subjectcategories", "affiliations", "funders")
+MAPPED_VOCABS = (
+    "contributorsroles",
+    "relationtypes",
+    "languages",
+    "licenses",
+    "resourcetypes",
+    "subjectcategories",
+    "affiliations",
+    "funders",
+)
 MAPPING_TABLES = {}  # vocab type -> {source slug: target id}
-AWARD_TABLE = {}     # (projectID, projectName, fundingProgram) -> award entry
+AWARD_TABLE = {}  # (projectID, projectName, fundingProgram) -> award entry
 
 
 def _init_mapping_tables():
     global MAPPING_TABLES
     for tgt_code in MAPPED_VOCABS:
-        with open(f"export_from_old_db/mapping_tables/{tgt_code}.csv", encoding="utf-8-sig", newline="") as f:
+        with open(
+            f"export_from_old_db/mapping_tables/{tgt_code}.csv",
+            encoding="utf-8-sig",
+            newline="",
+        ) as f:
             rows = csv.reader(f)
             next(rows, None)  # header
             MAPPING_TABLES[tgt_code] = {row[0]: row[1] for row in rows}
+
 
 # NOTE! en projectTitle in entries with czech projectName are claude-translated
 def _init_award_table():
     global AWARD_TABLE
     with open("export_from_old_db/mapping_tables/funding_trio.json") as f:
-        AWARD_TABLE = {(e["projectID"], e["projectName"], e["fundingProgram"]): e
-                       for e in json.load(f)}
+        AWARD_TABLE = {
+            (e["projectID"], e["projectName"], e["fundingProgram"]): e
+            for e in json.load(f)
+        }
 
 
 _init_mapping_tables()
@@ -80,7 +94,7 @@ _init_award_table()
 
 RECORDS_TO_DB_SLUG_TRANSFORM = {
     "contributorsroles": lambda rec_slug: rec_slug.replace("-", "_"),
-    "affiliations": lambda rec_slug: rec_slug.replace("-", "_").replace("/","."),
+    "affiliations": lambda rec_slug: rec_slug.replace("-", "_").replace("/", "."),
     "licenses": lambda rec_slug: rec_slug.replace("-", "_").replace("/", "."),
     "subjectcategories": lambda slug: slug.replace("/", "."),
 }
@@ -97,77 +111,135 @@ ORCID_RE = re.compile(r"\d{4}-\d{4}-\d{4}-\d{3}[\dXx]")
 
 # source description field -> CCMM descriptiontypes vocab id
 _DESCRIPTION_FIELDS = {
-    "abstract": "abstract", "methods": "methods",
-    "technicalInfo": "technical-info", "technicalNotes": "technical-info",
+    "abstract": "abstract",
+    "methods": "methods",
+    "technicalInfo": "technical-info",
+    "technicalNotes": "technical-info",
     "notes": "other",
 }
 
 MAPPED_FIELDS = {
-    "InvenioID", "titles", "creators", "dateAvailable", "dateCreated",
-    "language", "rights", "subjectCategories", "keywords", "publisher",
-    "accessRights", "oarepo:ownedBy", "oarepo:recordStatus",
-    "persistentIdentifiers", "_files",
+    "InvenioID",
+    "titles",
+    "creators",
+    "dateAvailable",
+    "dateCreated",
+    "language",
+    "rights",
+    "subjectCategories",
+    "keywords",
+    "publisher",
+    "accessRights",
+    "oarepo:ownedBy",
+    "oarepo:recordStatus",
+    "persistentIdentifiers",
+    "_files",
     # mapped below:
-    "contributors", "abstract", "methods", "technicalInfo", "technicalNotes",
-    "notes", "dateCollected", "fundingReferences", "relatedItems", "resourceType"
+    "contributors",
+    "abstract",
+    "methods",
+    "technicalInfo",
+    "technicalNotes",
+    "notes",
+    "dateCollected",
+    "fundingReferences",
+    "relatedItems",
+    "resourceType",
 }
 # Source keys we deliberately don't migrate. EMPTY FOR NOW — as you review the
 # unmapped fields surfaced below, move the ones that are safe to drop here.
-EXCEPTIONS: set[str] = {"$schema", "_bucket", "oarepo:doirequest", "oarepo:draft", "oarepo:validity"} # "_bucket is set for files individually?"
-TO_BE_DECIDED = {"oarepo:primaryCommunity", }
+EXCEPTIONS: set[str] = {
+    "$schema",
+    "_bucket",
+    "oarepo:doirequest",
+    "oarepo:draft",
+    "oarepo:validity",
+}  # "_bucket is set for files individually?"
+TO_BE_DECIDED = {
+    "oarepo:primaryCommunity",
+}
 
 # taxonomy bookkeeping keys — never descriptive content, ignored everywhere
 _VOCAB_NOISE = {
-    "links", "self", "tree", "level", "status", "selectable", "is_ancestor", "ancestor",
-    "busy_count", "descendants_count", "descendants_busy_count", "label", "ancestors", "data", "aliases"
+    "links",
+    "self",
+    "tree",
+    "level",
+    "status",
+    "selectable",
+    "is_ancestor",
+    "ancestor",
+    "busy_count",
+    "descendants_count",
+    "descendants_busy_count",
+    "label",
+    "ancestors",
+    "data",
+    "aliases",
 }
 
-MISSING_VOCAB_DATA = defaultdict(set)  # accumulates vocab ids missing in the target, across records
+MISSING_VOCAB_DATA = defaultdict(
+    set
+)  # accumulates vocab ids missing in the target, across records
 
 # Per-vocab-entry leftovers: source keys the build methods knowingly leave
 # behind, declared as decorator exceptions so they aren't flagged as losses.
 # A path is a tuple of dict keys (lists along the way act as wildcards); an
 # optional second element restricts the removal to that exact value.
 AFFILIATIONS_LEFTOUTS = (
-                        (("affiliation", "slug"),),
-                        (("affiliation", "institutionCategory"),), # not in our vocabs
-                        (("affiliation", "title"),),  # in vocabs but not in AffiliationRelationSchema; misses english translations
-                        (("affiliation", "nameType"),),  # organizational implicitly?
-                        (("affiliation", "relatedURI", "ROR"),), # converted to identifier
-                        (("affiliation", "ico"),), #
-                        (("affiliation", "relatedURI", "URL"),),
-                        (("affiliation", "relatedRID",),), # what is this?
-                        (("affiliation", "formerTitles"),), # not in our vocabs
-                        (("affiliation", "nameTranslated"),), # not in our vocabs
-                        (("affiliation", "fullName"),), # sometimes differs from name in our vocabularies; we are using ours
-                        )
+    (("affiliation", "slug"),),
+    (("affiliation", "institutionCategory"),),  # not in our vocabs
+    (
+        ("affiliation", "title"),
+    ),  # in vocabs but not in AffiliationRelationSchema; misses english translations
+    (("affiliation", "nameType"),),  # organizational implicitly?
+    (("affiliation", "relatedURI", "ROR"),),  # converted to identifier
+    (("affiliation", "ico"),),  #
+    (("affiliation", "relatedURI", "URL"),),
+    (
+        (
+            "affiliation",
+            "relatedRID",
+        ),
+    ),  # what is this?
+    (("affiliation", "formerTitles"),),  # not in our vocabs
+    (("affiliation", "nameTranslated"),),  # not in our vocabs
+    (
+        ("affiliation", "fullName"),
+    ),  # sometimes differs from name in our vocabularies; we are using ours
+)
 
 
 CONTRIBUTOR_ROLE_LEFTOUTS = (
-                            (("role", "slug"),),
-                            (("role", "marcCode"),), # not in our vocabs
-                            (("role", "title", "cs"), "spolupracovník"), # NOTE! not in ccmm vocabs - RelatedPerson was used instead
-                            (("role", "title", "en"), "collaborator"),
-                            (("role", "title", "cs"), "vedoucí"),
-                            (("role", "title", "en"), "advisor"),
-                            (("role", "title", "cs"), "umělec"),
-                            (("role", "title", "en"), "artist"),
-                            )
+    (("role", "slug"),),
+    (("role", "marcCode"),),  # not in our vocabs
+    (
+        ("role", "title", "cs"),
+        "spolupracovník",
+    ),  # NOTE! not in ccmm vocabs - RelatedPerson was used instead
+    (("role", "title", "en"), "collaborator"),
+    (("role", "title", "cs"), "vedoucí"),
+    (("role", "title", "en"), "advisor"),
+    (("role", "title", "cs"), "umělec"),
+    (("role", "title", "en"), "artist"),
+)
 
 LANGUAGE_LEFTOUTS = (
-                    (("title", "cs"), "kannadština"), # different/wrong titles in datarepo vocabs
-                    (("title", "cs"), "afarština"),
-                    (("title", "cs"), "abcházština"),
-                    )
+    (("title", "cs"), "kannadština"),  # different/wrong titles in datarepo vocabs
+    (("title", "cs"), "afarština"),
+    (("title", "cs"), "abcházština"),
+)
 
-FUNDER_LEFTOUTS = ((("funder", "noTick"),),
-                   (("funder", "tickable"),), # idk what this is
-                   (("funder", "CEA"),),
-                   (("funder", "slug"),),
-                   (("funder", "title"),), # titles are wrong in current datarepo vocabs
-                   (("funder", "nameType"),),
-                   (("funder", "relatedURI", "DOI"),),
-                   (("funder", "relatedURI", "ROR"),))
+FUNDER_LEFTOUTS = (
+    (("funder", "noTick"),),
+    (("funder", "tickable"),),  # idk what this is
+    (("funder", "CEA"),),
+    (("funder", "slug"),),
+    (("funder", "title"),),  # titles are wrong in current datarepo vocabs
+    (("funder", "nameType"),),
+    (("funder", "relatedURI", "DOI"),),
+    (("funder", "relatedURI", "ROR"),),
+)
 
 
 @dataclass
@@ -180,11 +252,13 @@ class Record:
 # nested-structure helpers
 # --------------------------------------------------------------------------- #
 
+
 def clean(value):
     """SanitizedUnicode-deserialise then strip whitespace; None stays None."""
     if value is None:
         return None
     return SanitizedUnicode().deserialize(value).strip()
+
 
 def _lang_id(code):
     if not code:
@@ -192,6 +266,7 @@ def _lang_id(code):
     res = langcodes.Language.get(code.lower()).to_alpha3()
     assert res
     return res.upper()
+
 
 def _walk_to_parent(obj, path):
     """Return the container holding path's last element."""
@@ -240,6 +315,7 @@ def _set_if_present(target, target_key, source, source_key, del_from_source=Fals
 # strings, names, languages, dates
 # --------------------------------------------------------------------------- #
 
+
 def _pick_in_preferred_lang(d, *langs, return_lang=False):
     """Pick a string from a multilingual {cs,en,...} dict.
 
@@ -262,7 +338,9 @@ def _split_name(full):
         fam, _, giv = full.partition(",")
         return fam.strip(), (giv.strip() or None)
     parts = full.split()
-    return (parts[-1], " ".join(parts[:-1])) if len(parts) >= 2 else (full.strip(), None)
+    return (
+        (parts[-1], " ".join(parts[:-1])) if len(parts) >= 2 else (full.strip(), None)
+    )
 
 
 def cz_date_to_iso(value):
@@ -284,15 +362,18 @@ def _get_id_from_coar_related_uri(ruri):
 
 def _is_draft(source):
     """
-    nr_data_prod=# SELECT count(*), json->>'oarepo:recordStatus', json->>'oarepo:draft' FROM records_metadata GROUP BY json->>'oarepo:recordStatus', json->>'oarepo:draft';
- count | ?column?  | ?column?
--------+-----------+----------
-   225 |           |
-   170 | published |
-   104 | editing   | true
-     1 | approved  |
+        nr_data_prod=# SELECT count(*), json->>'oarepo:recordStatus', json->>'oarepo:draft' FROM records_metadata GROUP BY json->>'oarepo:recordStatus', json->>'oarepo:draft';
+     count | ?column?  | ?column?
+    -------+-----------+----------
+       225 |           |
+       170 | published |
+       104 | editing   | true
+         1 | approved  |
     """
-    return source.get("oarepo:recordStatus", None) == "editing" or source.get("oarepo:draft", False) == True
+    return (
+        source.get("oarepo:recordStatus", None) == "editing"
+        or source.get("oarepo:draft", False) == True
+    )
 
 
 def _reverse_iterate(lst: list):
@@ -301,7 +382,11 @@ def _reverse_iterate(lst: list):
 
 
 def _get_from_mapping_tables(vtype, slug):
-    key = RECORDS_TO_DB_SLUG_TRANSFORM[vtype](slug) if vtype in RECORDS_TO_DB_SLUG_TRANSFORM else slug
+    key = (
+        RECORDS_TO_DB_SLUG_TRANSFORM[vtype](slug)
+        if vtype in RECORDS_TO_DB_SLUG_TRANSFORM
+        else slug
+    )
     return MAPPING_TABLES[vtype][key]
 
 
@@ -313,6 +398,7 @@ def _get_from_mapping_tables(vtype, slug):
 # The pieces here strip the losses we have explicitly accepted (`exceptions`)
 # and record the rest in converter.unmapped for review.
 # --------------------------------------------------------------------------- #
+
 
 def _remove_exception(obj, exception):
     """Delete the field addressed by exception[0] from obj.
@@ -396,7 +482,9 @@ def check_for_unmapped_data(field_name, field, exceptions=None):
             if not all_mapped and leftovers is not None:
                 self.unmapped[field_name] = leftovers
             return ret
+
         return wrapper
+
     return decorator
 
 
@@ -473,6 +561,7 @@ def _flag_unmapped_fields(converter: RecordDataConverter):
 # the converter
 # --------------------------------------------------------------------------- #
 
+
 class RecordDataConverter:
     """Builds one datarepo record (self.rec.target) from one NR source json.
 
@@ -495,7 +584,9 @@ class RecordDataConverter:
         self._filter_is_ancestor_entries("rights")
         self._filter_is_ancestor_entries("subjectCategories")
 
-        self._original_data = copy.deepcopy(self.nr)  # debugger aid: post-filter snapshot
+        self._original_data = copy.deepcopy(
+            self.nr
+        )  # debugger aid: post-filter snapshot
 
     def _filter_is_ancestor_entries(self, field):
         lst = self.nr.get(field) or []
@@ -529,7 +620,9 @@ class RecordDataConverter:
 
     # --- vocabulary resolution ------------------------------------------- #
 
-    def _resolve_vocab(self, field: str, vtype: str, vid: str | None, source=None, has_title=True):
+    def _resolve_vocab(
+        self, field: str, vtype: str, vid: str | None, source=None, has_title=True
+    ):
         """Resolve a vocabulary id to ({"id": ...} reference, full vocab json).
 
         Returns (None, None) when `vid` is missing or not present in the target
@@ -548,24 +641,33 @@ class RecordDataConverter:
         vocab = self.look.record(vtype, vid)
         ref = self.look.ref(vtype, vid)
         if ref is None:
-            MISSING_VOCAB_DATA["vtype"].add(vid)  # NOTE: literal "vtype" key, kept as in the original
+            MISSING_VOCAB_DATA["vtype"].add(
+                vid
+            )  # NOTE: literal "vtype" key, kept as in the original
             return None, None
         if has_title:
             ref["title"] = vocab["title"]
         if source is not None:
             target_vals = {_value_key(v) for _, v in _iter_leaves(vocab)}
-            covered = {path for path, value in _vocab_leaves_with_path(source)
-                       if _value_key(value) in target_vals}
+            covered = {
+                path
+                for path, value in _vocab_leaves_with_path(source)
+                if _value_key(value) in target_vals
+            }
             _del_from_vocabs_multiple(source, covered)
             _delete_vocab_noise(source)
         return ref, vocab
 
-    def _vocab_ref(self, field: str, vtype: str, vid: str | None, source=None, has_title=True) -> dict | None:
+    def _vocab_ref(
+        self, field: str, vtype: str, vid: str | None, source=None, has_title=True
+    ) -> dict | None:
         """Like _resolve_vocab, but returns just the reference (or None)."""
         ref, _ = self._resolve_vocab(field, vtype, vid, source, has_title)
         return ref
 
-    def _vocab_ref_with_record(self, field: str, vtype: str, vid: str | None, source=None, has_title=True):
+    def _vocab_ref_with_record(
+        self, field: str, vtype: str, vid: str | None, source=None, has_title=True
+    ):
         """Like _resolve_vocab; returns (ref, vocab json), (None, None) on a miss."""
         return self._resolve_vocab(field, vtype, vid, source, has_title)
 
@@ -607,8 +709,13 @@ class RecordDataConverter:
         ret = []
         for date, type_id in ((date_start, type_start), (date_end, type_end)):
             ref, vocab = self._dtype(type_id)
-            ret.append({"date": date, "type": ref,
-                        "description": _pick_in_preferred_lang(vocab["description"])})
+            ret.append(
+                {
+                    "date": date,
+                    "type": ref,
+                    "description": _pick_in_preferred_lang(vocab["description"]),
+                }
+            )
         return ret
 
     def _parse_date(self, date, type_):
@@ -635,12 +742,18 @@ class RecordDataConverter:
             elif to:
                 date = to
         if dates:
-            return self._process_date_interval(dates["from"], dates["to"],
-                        f"{used_type}Start", f"{used_type}End")
+            return self._process_date_interval(
+                dates["from"], dates["to"], f"{used_type}Start", f"{used_type}End"
+            )
         else:
             ref, vocab = self._dtype(used_type)
-            return [{"date": self._validate_date(date), "type": ref,
-                     "description": _pick_in_preferred_lang(vocab["description"])}]
+            return [
+                {
+                    "date": self._validate_date(date),
+                    "type": ref,
+                    "description": _pick_in_preferred_lang(vocab["description"]),
+                }
+            ]
 
     # --- people & organizations ------------------------------------------- #
 
@@ -655,12 +768,19 @@ class RecordDataConverter:
         assert type_ in ("personal", "organizational")
         if type_ == "organizational":
             identifier = _get_from_mapping_tables("affiliations", entry["slug"])
-            ref, vocab = self._vocab_ref_with_record("affilation", "affiliations", identifier, entry,
-                                                         has_title=False)
-            assert vocab['name'] == full
-            return {"name": full, "type": "organizational", "identifiers": vocab["identifiers"]}
+            ref, vocab = self._vocab_ref_with_record(
+                "affilation", "affiliations", identifier, entry, has_title=False
+            )
+            assert vocab["name"] == full
+            return {
+                "name": full,
+                "type": "organizational",
+                "identifiers": vocab["identifiers"],
+            }
 
-        fam, giv = _split_name(full) # TODO: do we want this if the original doesn't have the split? - schema joins this
+        fam, giv = _split_name(
+            full
+        )  # TODO: do we want this if the original doesn't have the split? - schema joins this
         p = {"name": full, "type": "personal", "family_name": fam}
         if giv:
             p["given_name"] = giv
@@ -669,13 +789,16 @@ class RecordDataConverter:
         for idx, identifier in _reverse_iterate(src_identifiers):
             if identifier["scheme"] == "orcid":
                 val = ORCID_RE.search(identifier["identifier"])
-                if not val: # some are nonsense
+                if not val:  # some are nonsense
                     continue
                 val = val.group(0)
-                name_ref = self._vocab_ref("metadata.creators.person_or_org", "names",
-                                           val, has_title=False)
+                name_ref = self._vocab_ref(
+                    "metadata.creators.person_or_org", "names", val, has_title=False
+                )
                 if not name_ref:
-                    self.mapping_irregularities.setdefault("orcid_missing_in_vocabs", []).append(val)
+                    self.mapping_irregularities.setdefault(
+                        "orcid_missing_in_vocabs", []
+                    ).append(val)
                 if "identifier" in identifier:
                     identifiers.append({"identifier": val, "scheme": "orcid"})
                     break
@@ -700,10 +823,11 @@ class RecordDataConverter:
         affiliations_list = []
         for a in affiliations or []:
             identifier = _get_from_mapping_tables("affiliations", a["slug"])
-            ref, vocab = self._vocab_ref_with_record("affilation", "affiliations", identifier, a,
-                                                     has_title=False)
-            name = vocab['name']
-            affiliations_list.append({"name": name, **ref}) # Identifiers are dump only
+            ref, vocab = self._vocab_ref_with_record(
+                "affilation", "affiliations", identifier, a, has_title=False
+            )
+            name = vocab["name"]
+            affiliations_list.append({"name": name, **ref})  # Identifiers are dump only
         return affiliations_list
 
     def _person_org_with_affiliations(self, entry):
@@ -720,8 +844,9 @@ class RecordDataConverter:
         for idx, role in _reverse_iterate(roles):
             slug = role["slug"]
             rid = _get_from_mapping_tables("contributorsroles", slug)
-            role_ref, vocab = self._vocab_ref_with_record("metadata.contributors", "contributorsroles", rid,
-                                                          source=role)
+            role_ref, vocab = self._vocab_ref_with_record(
+                "metadata.contributors", "contributorsroles", rid, source=role
+            )
             reference_roles[slug] = role_ref
 
         for idx, (slug, ref) in enumerate(reference_roles.items()):
@@ -754,18 +879,25 @@ class RecordDataConverter:
             id = SanitizedUnicode(required=True)
             title = fields.Dict(dump_only=True)  # {lang_code: str}
         """
-        return {**self._person_org_with_affiliations(entry), "role": self._contributor_role(entry)}
+        return {
+            **self._person_org_with_affiliations(entry),
+            "role": self._contributor_role(entry),
+        }
 
     # --- build_* methods, in build() call order ----------------------------- #
 
-    @check_for_unmapped_data("titles", "titles", exceptions={(('titleType',), 'mainTitle')})
+    @check_for_unmapped_data(
+        "titles", "titles", exceptions={(("titleType",), "mainTitle")}
+    )
     def build_titles(self):
         titles = self.nr.get("titles")
         main_title = None
         for title_entry in titles:
             if title_entry.get("titleType") == "mainTitle":
                 title_i18nstr = title_entry["title"]
-                main_title, lang = _pick_in_preferred_lang(title_i18nstr, return_lang=True)  # translations are stored in AdditionalTitles
+                main_title, lang = _pick_in_preferred_lang(
+                    title_i18nstr, return_lang=True
+                )  # translations are stored in AdditionalTitles
                 del title_i18nstr[lang]
                 if len(title_i18nstr) == 0:
                     titles.remove(title_entry)
@@ -789,18 +921,30 @@ class RecordDataConverter:
         for idx, title_entry in _reverse_iterate(titles):
             title_type = title_entry["titleType"]
             for lang, title_str in title_entry["title"].items():
-                used_type = "translated-title" if title_type == "mainTitle" else title_type
-                type_ref = self._vocab_ref("metadata.additional_titles", "titletypes", used_type)
-                lang_ref = self._vocab_ref("metadata.additional_titles", "languages", _lang_id(lang))
-                additional_titles.append({"type": type_ref, "title": title_str, "lang": lang_ref})
+                used_type = (
+                    "translated-title" if title_type == "mainTitle" else title_type
+                )
+                type_ref = self._vocab_ref(
+                    "metadata.additional_titles", "titletypes", used_type
+                )
+                lang_ref = self._vocab_ref(
+                    "metadata.additional_titles", "languages", _lang_id(lang)
+                )
+                additional_titles.append(
+                    {"type": type_ref, "title": title_str, "lang": lang_ref}
+                )
             del titles[idx]
 
         self._add_to_metadata("title", main_title)
         self._add_to_metadata("additional_titles", additional_titles)
 
-    @check_for_unmapped_data("creators", "creators", exceptions={
-                                                     *AFFILIATIONS_LEFTOUTS,
-                                                     })
+    @check_for_unmapped_data(
+        "creators",
+        "creators",
+        exceptions={
+            *AFFILIATIONS_LEFTOUTS,
+        },
+    )
     def build_creators(self):
         """
         creators = fields.List(fields.Nested(CreatorSchema))
@@ -825,25 +969,39 @@ class RecordDataConverter:
             if len(date_list) == 2:
                 return date_list[1]["date"]
             assert False
+
         pubdate = None
-        available = self._parse_date(self.nr.get("dateAvailable", None), "dateAvailable")
+        available = self._parse_date(
+            self.nr.get("dateAvailable", None), "dateAvailable"
+        )
         created = self._parse_date(self.nr.get("dateCreated", None), "dateCreated")
         if available:
             pubdate = _pick(available)
         elif created:
             pubdate = _pick(created)
-        if pubdate: # checked later to not duplicate the is published check
+        if pubdate:  # checked later to not duplicate the is published check
             self._add_to_metadata("publication_date", pubdate)
 
-    @check_for_unmapped_data("resourceType", "resourceType", exceptions={(('altLabels',),)})
+    @check_for_unmapped_data(
+        "resourceType", "resourceType", exceptions={(("altLabels",),)}
+    )
     def build_resource_type(self):
         resource_types = self.nr.get("resourceType")
         assert len(resource_types) == 1
-        assert resource_types[0]["links"]["self"] == 'https://data.narodni-repozitar.cz/2.0/taxonomies/resourceType/datasets'
+        assert (
+            resource_types[0]["links"]["self"]
+            == "https://data.narodni-repozitar.cz/2.0/taxonomies/resourceType/datasets"
+        )
         resource_type = resource_types[0]
-        resource_type_id = MAPPING_TABLES["resourcetypes"]["datasets"] # whatever everything is datasets here
-        resource_type_ref = self._vocab_ref("metadata.resource_type", "resourcetypes", resource_type_id,
-                                            source=resource_type)
+        resource_type_id = MAPPING_TABLES["resourcetypes"][
+            "datasets"
+        ]  # whatever everything is datasets here
+        resource_type_ref = self._vocab_ref(
+            "metadata.resource_type",
+            "resourcetypes",
+            resource_type_id,
+            source=resource_type,
+        )
         self._add_to_metadata("resource_type", resource_type_ref)
 
     @check_for_unmapped_data("language", "language", exceptions={*LANGUAGE_LEFTOUTS})
@@ -862,9 +1020,15 @@ class RecordDataConverter:
             langs.append(ref)
         self._add_to_metadata("languages", langs)
 
-    @check_for_unmapped_data("rights", "rights", exceptions={(("slug",),),
-                                                             (("noTick",),),  # wtf is this
-                                                             (("tickable",),)})
+    @check_for_unmapped_data(
+        "rights",
+        "rights",
+        exceptions={
+            (("slug",),),
+            (("noTick",),),  # wtf is this
+            (("tickable",),),
+        },
+    )
     def build_rights(self):
         """
         rights = fields.List(fields.Nested(RightsSchema))
@@ -880,16 +1044,22 @@ class RecordDataConverter:
         """
         rights = []
         for r in self.nr.get("rights") or []:
-            rid = _get_from_mapping_tables("licenses", r["slug"])# rights seem to be in all caps
-            ref, vocab = self._vocab_ref_with_record("metadata.rights", "licenses", rid, source=r)
-            _set_if_present(ref, "description",  vocab, "description")
+            rid = _get_from_mapping_tables(
+                "licenses", r["slug"]
+            )  # rights seem to be in all caps
+            ref, vocab = self._vocab_ref_with_record(
+                "metadata.rights", "licenses", rid, source=r
+            )
+            _set_if_present(ref, "description", vocab, "description")
 
             _set_if_present(ref, "link", r, "relatedURI.URL", del_from_source=True)
             rights.append(ref)
 
         self._add_to_metadata("rights", rights)
 
-    @check_for_unmapped_data("subjectCategories", "subjectCategories", exceptions={(("slug",),)})
+    @check_for_unmapped_data(
+        "subjectCategories", "subjectCategories", exceptions={(("slug",),)}
+    )
     def build_subjects(self):
         """
         subjects = fields.List(fields.Nested(SubjectRelationSchema))
@@ -906,26 +1076,34 @@ class RecordDataConverter:
         subjects = []
         for sc in self.nr.get("subjectCategories"):
             id_ = _get_from_mapping_tables("subjectcategories", sc["slug"])
-            ref, vocab = self._vocab_ref_with_record("metadata.subjects", "subjectcategories", id_, source=sc)
-            subjects.append({"id": id_, "subject": _pick_in_preferred_lang(vocab["title"])})
+            ref, vocab = self._vocab_ref_with_record(
+                "metadata.subjects", "subjectcategories", id_, source=sc
+            )
+            subjects.append(
+                {"id": id_, "subject": _pick_in_preferred_lang(vocab["title"])}
+            )
         self._add_to_metadata("subjects", subjects)
 
     def build_publisher(self):
         """publisher is just a single string in the target."""
         pubs = self.nr.get("publisher")
-        if isinstance(pubs, list) and pubs: # TODO: CCMM allows only one publisher
-            pn = pubs[0]["slug"] # TODO: person_or_org to str mapping required
+        if isinstance(pubs, list) and pubs:  # TODO: CCMM allows only one publisher
+            pn = pubs[0]["slug"]  # TODO: person_or_org to str mapping required
             self.metadata["publisher"] = pn
         elif isinstance(pubs, str):
             self.metadata["publisher"] = pubs
         if len(pubs) > 1:
             self.mapping_irregularities["publisher_multiple"] = pubs[1:]
 
-    @check_for_unmapped_data("contributors", "contributors", exceptions={
-                                                             *CONTRIBUTOR_ROLE_LEFTOUTS,
-                                                             *AFFILIATIONS_LEFTOUTS})
+    @check_for_unmapped_data(
+        "contributors",
+        "contributors",
+        exceptions={*CONTRIBUTOR_ROLE_LEFTOUTS, *AFFILIATIONS_LEFTOUTS},
+    )
     def build_contributors(self):
-        contributors = [a for c in self.nr.get("contributors", []) if (a := self._contributor(c))]
+        contributors = [
+            a for c in self.nr.get("contributors", []) if (a := self._contributor(c))
+        ]
         self._add_to_metadata("contributors", contributors)
 
     def _get_descriptions(self):
@@ -953,16 +1131,20 @@ class RecordDataConverter:
         """
         descriptions = []
         for dtype, (block, original_dtype) in self._get_descriptions().items():
-            type_ref = self._vocab_ref("metadata.additional_descriptions",
-                                       "descriptiontypes", dtype)
+            type_ref = self._vocab_ref(
+                "metadata.additional_descriptions", "descriptiontypes", dtype
+            )
             if isinstance(block, dict):  # multilingual {cs,en,...}
                 for lg, val in block.items():
                     if not val:
                         continue
                     d = {"description": val, "type": type_ref}
-                    lang = _lang_id(lg).upper() # TODO: the lg here is not the same as slug and i'm not completely sure this maps correctly
-                    lang_ref = self._vocab_ref("metadata.additional_descriptions",
-                                               "languages", lang)
+                    lang = _lang_id(
+                        lg
+                    ).upper()  # TODO: the lg here is not the same as slug and i'm not completely sure this maps correctly
+                    lang_ref = self._vocab_ref(
+                        "metadata.additional_descriptions", "languages", lang
+                    )
                     d["lang"] = lang_ref
                     descriptions.append(d)
             elif isinstance(block, str):
@@ -978,7 +1160,18 @@ class RecordDataConverter:
 
         self._add_to_metadata("additional_descriptions", descriptions)
 
-    @check_for_unmapped_data("dates", lambda self: [d for d in [self.nr.get("dateAvailable"), self.nr.get("dateCreated"), self.nr.get("dateCollected")] if d])
+    @check_for_unmapped_data(
+        "dates",
+        lambda self: [
+            d
+            for d in [
+                self.nr.get("dateAvailable"),
+                self.nr.get("dateCreated"),
+                self.nr.get("dateCollected"),
+            ]
+            if d
+        ],
+    )
     def build_dates(self):
         # dates (available / created / collected; collected ranges split) ---------
         """
@@ -999,7 +1192,9 @@ class RecordDataConverter:
         dates += self._parse_date(self.nr.pop("dateCollected", None), "dateCollected")
         self._add_to_metadata("dates", dates)
 
-    @check_for_unmapped_data("funding", "fundingReferences", exceptions={*FUNDER_LEFTOUTS})
+    @check_for_unmapped_data(
+        "funding", "fundingReferences", exceptions={*FUNDER_LEFTOUTS}
+    )
     def build_funding(self):
         """
         funding = fields.List(fields.Nested(FundingSchema))
@@ -1030,11 +1225,16 @@ class RecordDataConverter:
             if funders:
                 assert len(funders) == 1
                 funder = funders[0]
-                fname = funder["fullName"] if "fullName" in funder else _pick_in_preferred_lang(funder["title"])
+                fname = (
+                    funder["fullName"]
+                    if "fullName" in funder
+                    else _pick_in_preferred_lang(funder["title"])
+                )
                 slug = funder["slug"]
                 identifier = _get_from_mapping_tables("funders", slug)
-                funder_ref, vocab = self._vocab_ref_with_record("funders", "funders", identifier, funder,
-                                                                has_title=False)
+                funder_ref, vocab = self._vocab_ref_with_record(
+                    "funders", "funders", identifier, funder, has_title=False
+                )
                 entry["funder"] = {"name": fname, **funder_ref}
 
             award: dict[str, Any] = {}
@@ -1042,7 +1242,9 @@ class RecordDataConverter:
             project_id = clean(fr.get("projectID"))
             project_name = clean(fr.get("projectName"))
             funding_program = clean(fr.get("fundingProgram"))
-            award_title = AWARD_TABLE[(project_id, project_name, funding_program)]["projectTitle"]
+            award_title = AWARD_TABLE[(project_id, project_name, funding_program)][
+                "projectTitle"
+            ]
             if project_name:
                 award["title"] = award_title
             if project_id:
@@ -1063,18 +1265,30 @@ class RecordDataConverter:
         ret["publication_date"] = related_resource_data.pop("itemYear")
         ret["title"] = related_resource_data.pop("itemTitle")
         ret["identifiers"] = related_resource_data.pop("itemPIDs")
-        ret["creators"] = [self._person_org_with_affiliations(c) for c in related_resource_data["itemCreators"]]
-        ret["resource_type"] = self._vocab_ref("metadata.resource_type", "resourcetypes", resource_type_id)
+        ret["creators"] = [
+            self._person_org_with_affiliations(c)
+            for c in related_resource_data["itemCreators"]
+        ]
+        ret["resource_type"] = self._vocab_ref(
+            "metadata.resource_type", "resourcetypes", resource_type_id
+        )
         return ret
 
-    @check_for_unmapped_data("relatedItems", "relatedItems", exceptions={(("itemRelationType", "hint"),),
-                                                         (("itemRelationType", "pair"),),
-                                                         (("itemResourceType", "title"),),  # different values in new vocabs, taken from them
-                                                         (("itemResourceType", "coarType"),),
-                                                         (("itemResourceType", "nuslType"),),  # do we want to do something with this
-                                                         (("itemResourceType", "relatedURI", 'COAR'),),  # - mapped to resource type
-                                                         (("itemURL",),),
-                                                         })
+    @check_for_unmapped_data(
+        "relatedItems",
+        "relatedItems",
+        exceptions={
+            (("itemRelationType", "hint"),),
+            (("itemRelationType", "pair"),),
+            (
+                ("itemResourceType", "title"),
+            ),  # different values in new vocabs, taken from them
+            (("itemResourceType", "coarType"),),
+            (("itemResourceType", "nuslType"),),  # do we want to do something with this
+            (("itemResourceType", "relatedURI", "COAR"),),  # - mapped to resource type
+            (("itemURL",),),
+        },
+    )
     def build_related(self):
         # related items -> related_identifiers (have a PID/URL) / related_resources
         """
@@ -1104,28 +1318,50 @@ class RecordDataConverter:
             slug = item_relation_type["links"]["self"].rstrip("/").split("/")[-1]
             relation_type = _get_from_mapping_tables("relationtypes", slug)
 
-            resource_type = _get_id_from_coar_related_uri(item_resource_type["relatedURI"])
+            resource_type = _get_id_from_coar_related_uri(
+                item_resource_type["relatedURI"]
+            )
             del item_resource_type["relatedURI"]
 
-            related_resource = self._create_related_resource(related_item, resource_type)
+            related_resource = self._create_related_resource(
+                related_item, resource_type
+            )
             rel_res.append(related_resource)
 
             def _add_vocab_references(e, relation_source, resource_source):
                 if relation_type:
-                    e["relation_type"] = self._vocab_ref("metadata.related", "relationtypes",
-                                                         relation_type, source=relation_source)
+                    e["relation_type"] = self._vocab_ref(
+                        "metadata.related",
+                        "relationtypes",
+                        relation_type,
+                        source=relation_source,
+                    )
                 if resource_type:
-                    e["resource_type"] = self._vocab_ref("metadata.related", "resourcetypes",
-                                                         resource_type, source=resource_source)
+                    e["resource_type"] = self._vocab_ref(
+                        "metadata.related",
+                        "resourcetypes",
+                        resource_type,
+                        source=resource_source,
+                    )
                 return e
 
             if related_resource["identifiers"]:
                 for p in related_resource["identifiers"]:
-                    rel_ids.append(_add_vocab_references({"identifier": p["identifier"], "scheme": p["scheme"]},
-                                             item_relation_types[0], item_resource_types[0]))
+                    rel_ids.append(
+                        _add_vocab_references(
+                            {"identifier": p["identifier"], "scheme": p["scheme"]},
+                            item_relation_types[0],
+                            item_resource_types[0],
+                        )
+                    )
             elif related_item.get("itemURL"):
-                rel_ids.append(_add_vocab_references({"identifier": related_item["itemURL"], "scheme": "url"},
-                                         item_relation_types[0], item_resource_types[0]))
+                rel_ids.append(
+                    _add_vocab_references(
+                        {"identifier": related_item["itemURL"], "scheme": "url"},
+                        item_relation_types[0],
+                        item_resource_types[0],
+                    )
+                )
 
         self._add_to_metadata("related_identifiers", rel_ids)
         self._add_to_metadata("related_resources", rel_res)
@@ -1157,20 +1393,25 @@ class RecordDataConverter:
             break
         if ar_code == "c_abf2":
             access = {"record": "public", "files": "public"}
-        elif ar_code == "c_f1cf":  # embargoed — RDM has no embargoed state, no date in source
+        elif (
+            ar_code == "c_f1cf"
+        ):  # embargoed — RDM has no embargoed state, no date in source
             access = {"record": "public", "files": "restricted"}
         elif ar_code == "c_16ec":
             access = {"record": "restricted", "files": "restricted"}
         else:
-            self.mapping_irregularities["access_rights_code"] = f"access rights {ar_code!r} not in target vocab"
+            self.mapping_irregularities["access_rights_code"] = (
+                f"access rights {ar_code!r} not in target vocab"
+            )
             access = {"record": "restricted", "files": "restricted"}
 
         access["embargo"] = {"until": None, "active": False, "reason": None}
 
         self.record_data = {"access": access}
 
-def convert_metadata(metadata, look):
+
+def convert_old_catchall_metadata(metadata, look):
     """"""
     converter = RecordDataConverter(metadata, look)
     converter.build()
-    return converter, converter.metadata
+    return converter, converter.metadata, converter.record_data

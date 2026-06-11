@@ -64,14 +64,17 @@ def prepare_record(record):
     record["owner_id"] = str(user_identity.id_user)
 
     community_slug = record["community"]
-    community = (
-        db.session.query(CommunityMetadata).filter_by(slug=community_slug).first()
-    )
-    if community is None:
-        raise ValueError(f"Community not found for slug: {community_slug}")
-    record["community_id"] = str(community.id)
+    if community_slug is not None:
+        community = (
+            db.session.query(CommunityMetadata).filter_by(slug=community_slug).first()
+        )
+        if community is None:
+            raise ValueError(f"Community not found for slug: {community_slug}")
+        record["community_id"] = str(community.id)
+    else:
+        record["community_id"] = None
 
-    doi = record["doi"]
+    doi = record.get("doi")
     if doi:
         record["doi"] = str(doi)
 
@@ -182,7 +185,7 @@ def set_draft_owner(draft_record, record_dict):
 
 def assign_doi(record_service, draft_record, record_dict):
     if "doi" in draft_record.pids:
-        click.secho(f"    DOI already registered, skipping", fg="yellow")
+        click.secho("    DOI already registered, skipping", fg="yellow")
     else:
         click.secho(f"    Registering DOI {record_dict['doi']}", fg="yellow")
         click.secho(f"    Existing pids, {draft_record.pids}", fg="green")
@@ -197,12 +200,18 @@ def make_draft_record(record_service, draft_record, record_dict):
         click.secho("    Creating a new draft record", fg="yellow")
         draft_record = record_from_result(
             record_service.create(
-                system_identity, {"metadata": record_dict["metadata"]}
+                system_identity,
+                {
+                    "metadata": record_dict["metadata"],
+                    "access": record_dict["access"],
+                },
             )
         )
-    assign_community_to_draft(draft_record, record_dict)
+    if record_dict.get("community"):
+        assign_community_to_draft(draft_record, record_dict)
     set_draft_owner(draft_record, record_dict)
-    assign_doi(record_service, draft_record, record_dict)
+    if record_dict.get("doi"):
+        assign_doi(record_service, draft_record, record_dict)
     upload_files(record_service, draft_record, record_dict)
 
     return draft_record
@@ -222,7 +231,7 @@ def compute_checksum(s3_path, expected_size, pass_no, total_passes):
             leave=False,
             desc=f"Computing checksum (pass {pass_no} / {total_passes})",
         ) as pbar:
-            for chunk in response.iter_chunks(chunk_size=8192):
+            for chunk in response.iter_chunks(chunk_size=120000):
                 md5.update(chunk)
                 size += len(chunk)
                 pbar.update(len(chunk))
@@ -244,7 +253,7 @@ def compute_saved_checksum(stream, expected_size):
         leave=False,
         desc="Computing saved file checksum",
     ) as pbar:
-        for chunk in stream.read(chunk_size=8192):
+        while chunk := stream.read(120000):
             md5.update(chunk)
             size += len(chunk)
             pbar.update(len(chunk))
@@ -297,31 +306,24 @@ def upload_single_file(
             system_identity, draft_record["id"], file_key
         )
     )
-    # now the checksum has been computed, verify that it matches
-    if committed_record["checksum"] != checksum:
+
+    # download the record's file content and check the checksum again
+    try:
+        with record_service.draft_files.get_file_content(
+            system_identity, committed_record["id"], file_key
+        ).open_stream(mode="rb") as stream:
+            saved_checksum = compute_saved_checksum(stream, expected_size)
+            if saved_checksum != checksum:
+                raise ValueError(
+                    f"Saved checksum mismatch: expected {checksum}, got {saved_checksum}"
+                )
+    except:
         record_service.draft_files.delete_file(
             system_identity,
             draft_record["id"],
             file_key,
         )
-        raise ValueError(
-            f"Checksum mismatch: expected {checksum}, got {committed_record['checksum']}"
-        )
-
-    # download the record's file content and check the checksum again
-    with record_service.draft_files.get_file_content(
-        system_identity, draft_record["id"], file_key
-    ).open_stream() as stream:
-        saved_checksum = compute_saved_checksum(stream, expected_size)
-        if saved_checksum != checksum:
-            record_service.draft_files.delete_file(
-                system_identity,
-                draft_record["id"],
-                file_key,
-            )
-            raise ValueError(
-                f"Saved checksum mismatch: expected {checksum}, got {saved_checksum}"
-            )
+        raise
 
 
 def upload_files(record_service, draft_record, record_dict):
@@ -339,11 +341,17 @@ def upload_files(record_service, draft_record, record_dict):
 
         if file_key in draft_record.files:
             dumped_file = FileSchema().dump(draft_record.files[file_key])
+            click.secho(
+                f"        File already exists, status: {dumped_file['status']}",
+                fg="yellow",
+            )
+
             if dumped_file["status"] == "completed":
                 click.secho(
                     f"        Skipping {file_key}, already uploaded", fg="yellow"
                 )
                 continue
+
             # partially uploaded, remove the file
             record_service.draft_files.delete(
                 system_identity, draft_record.id, file_key
@@ -422,14 +430,25 @@ def upload_record(record_dict):
 
 def import_records(records_dir: str, identifiers_to_import: list[str]):
     records = load_records_to_memory(Path(records_dir), identifiers_to_import)
-
     for record in records:
         prepare_record(record)
 
     patch_pid_field()
 
+    status_stream = open(f"status-{datetime.datetime.now().isoformat()}.log", "w")
     for record in records:
-        upload_record(record)
+        if record["is_draft"]:
+            print(f"SKIPPED-DRAFT: {record['id']}", file=status_stream, flush=True)
+            continue
+        if record["access"]["files"] != "public":
+            print(f"SKIPPED-RESTRICTED: {record['id']}", file=status_stream, flush=True)
+            continue
+        try:
+            upload_record(record)
+            print(f"SUCCESS: {record['id']}", file=status_stream, flush=True)
+        except Exception:
+            print(f"FAILURE: {record['id']}", file=status_stream, flush=True)
+    status_stream.close()
 
 
 if __name__ == "__main__":
