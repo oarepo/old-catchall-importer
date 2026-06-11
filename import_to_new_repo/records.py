@@ -231,7 +231,7 @@ def compute_checksum(s3_path, expected_size, pass_no, total_passes):
             leave=False,
             desc=f"Computing checksum (pass {pass_no} / {total_passes})",
         ) as pbar:
-            for chunk in response.iter_chunks(chunk_size=8192):
+            for chunk in response.iter_chunks(chunk_size=120000):
                 md5.update(chunk)
                 size += len(chunk)
                 pbar.update(len(chunk))
@@ -253,7 +253,7 @@ def compute_saved_checksum(stream, expected_size):
         leave=False,
         desc="Computing saved file checksum",
     ) as pbar:
-        while chunk := stream.read(8192):
+        while chunk := stream.read(120000):
             md5.update(chunk)
             size += len(chunk)
             pbar.update(len(chunk))
