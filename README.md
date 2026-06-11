@@ -11,8 +11,14 @@ psql -h localhost -p 5832 -U catchall -W catchall <nr_data_prod_sql_dump-2026-05
 Password: catchall
 ```
 
-2. Go to https://perun.e-infra.cz/organizations/3880/members, open devtools, set page size to 1000 and 
-   capture getMembersPage request. Save its output to exported_data/nr_members_input.json
+2. Set the following environment variables:
+
+```bash
+export OLD_CATCHALL_S3_ACCESS_KEY=
+export OLD_CATCHALL_S3_SECRET_ACCESS_KEY=
+export OLD_CATCHALL_S3_BUCKET_NAME=
+export OLD_CATCHALL_S3_ENDPOINT_URL=
+```
 
 3. Run the export script
 
@@ -24,16 +30,12 @@ This command creates:
 - `exported_data/users.yaml`
 - `exported_data/communities.yaml`
 - `exported_data/roles.yaml`
+- `exported_data/eppn_mapping.yaml`
+- `exported_data/records`
 
 ## Import into datarepo.eosc.cz
 
-Run the import script:
-
-```bash
-./import.sh
-```
-
-This command imports the exported data into the datarepo.eosc.cz instance.
+1. Copy this repository **with** the `exported_data` directory to the web container.
 
 `IMPORTER_PATH` is the path to the `old-catchall-importer` directory.
 
@@ -41,27 +43,21 @@ This command imports the exported data into the datarepo.eosc.cz instance.
 export IMPORTER_PATH=$(pwd)
 ```
 
-### Synchronize all communities
-
-Run the following commands:
-
-```bash
-python ${IMPORTER_PATH}/import_to_new_repo/communities.py
-invenio einfra synchronize_all_communities
-```
-
-### Create users
-
-Run the following command:
+2. Run the import script inside the web container. If running locally, it needs to be run from the repository root
+with the virtualenv activated. 
 
 ```bash
-python ${IMPORTER_PATH}/import_to_new_repo/create_users.py
+${IMPORTER_PATH}/import.sh
 ```
 
-### Link users to e-infra accounts
+This command imports the exported data into the datarepo.eosc.cz instance.
 
-Run the following command:
+## Invite users to e-infra
+
+Inside the web container, run the following commands:
 
 ```bash
-invenio shell ${IMPORTER_PATH}/import_to_new_repo/link_users.py
+invenio shell ${IMPORTER_PATH}/import_to_new_repo/send_invitations.py  ${IMPORTER_PATH}/exported_data/users.yaml
 ```
+
+Note: please check it on a single user before running it on all users !!!
