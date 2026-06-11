@@ -76,68 +76,11 @@ def create_einfra_link(user, identities, extra_data):
     click.secho("  done", fg="green")
 
 
-def set_user_communities(user, communities, identity):
-    if not communities:
-        return
-    for community, membership_role in communities.items():
-        click.secho(
-            f"  setting community {community} ({membership_role}) ...",
-            fg="cyan",
-            nl=False,
-        )
-        community = current_communities.service.read(system_identity, community)
-        data = {
-            "members": [{"type": "user", "id": str(user.id)}],
-            "role": membership_role,
-        }
-        try:
-            current_communities.service.members.add(
-                system_identity,
-                community.id,
-                data,
-            )
-            click.secho("  done", fg="green")
-        except AlreadyMemberError:
-            click.secho("  already member", fg="green")
-            pass
-
-    perun_api = current_einfra_oidc.perun_api()
-
-    # lookup user in perun
-    # perun_user = perun_api.get_user_by_attribute(
-    #     attribute_name="user:virt:login-namespace:einfraid-persistent",
-    #     attribute_value=identity,
-    # )
-
-    users = perun_api._perun_call(
-        "groupsManager",
-        "getGroupMembers",
-        {"group": 3880},
-    )
-    print(users)
-    raise
-
-    # for community, membership_role in communities.items():
-    #     click.secho(
-    #         f"  adding user to perun into {community} ({membership_role}) ...",
-    #         fg="cyan",
-    #         nl=False,
-    #     )
-
-    #     perun_api.add_user_to_group(vo_id, user_id, group_id)
-
-    #     click.secho("  done", fg="green")
-
-
 def import_users(users_file):
     users = yaml.safe_load(open(users_file))
     for user_data in users:
         user = create_user(user_data["email"])
         create_einfra_link(user, user_data["identities"], user_data["extra_data"] or {})
-        if user_data["identities"]:
-            set_user_communities(
-                user, user_data["communities"], user_data["identities"][0]
-            )
 
 
 if __name__ == "__main__":

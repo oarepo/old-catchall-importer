@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import click
 from yaml import safe_dump
 
@@ -11,6 +13,8 @@ def export_users(session):
     role_data = []
     community_data = {}
     community_map = {}
+    all_eppns = set()
+    all_emails = set()
     for role in session.query(AccountsRole).order_by("id").all():
         if role.name.startswith("community:"):
             _, community_name, community_role = role.name.split(":")
@@ -48,7 +52,8 @@ def export_users(session):
         )
         if is_general_submitter:
             user_roles.append("submitter")
-
+        all_eppns.update((identity.id for identity in user.oauthclient_useridentity))
+        all_emails.add(user.email.lower())
         if not user_roles and not user_communities:
             continue
 
@@ -74,6 +79,9 @@ def export_users(session):
         user_list, open("exported_data/users.yaml", "w"), default_flow_style=False
     )
     click.secho(f"Users exported successfully ({len(user_list)} users)", fg="green")
+
+    Path("exported_data/all_eppns.txt").write_text("\n".join(sorted(all_eppns)))
+    Path("exported_data/all_emails.txt").write_text("\n".join(sorted(all_emails)))
 
 
 def get_user_roles(roles, community_map):

@@ -11,7 +11,9 @@ dependencies = [
     "pyyaml",
 
     "flask",
-    "requests"
+    "requests",
+    "boto3",
+    "tqdm"
 ]
 
 [project.scripts]
