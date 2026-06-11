@@ -1,0 +1,2 @@
+src_id,tgt_id,src_title,tgt_title
+datasets,c_ddb1,"{'cs': 'Datová sada', 'en': 'Dataset'}","{'cs': 'datová sada', 'en': 'dataset'}"

@@ -6,7 +6,10 @@ import boto3
 import click
 from tqdm import tqdm
 
+from .db_vocab_lookups import _LOOKUP
+from .migrate_refactored import convert_metadata
 from .models import AccountsUser, FilesFiles, RecordsMetadata
+
 
 old_catchall_s3 = boto3.client(
     "s3",
@@ -18,7 +21,8 @@ old_catchall_bucket_name = os.environ["OLD_CATCHALL_S3_BUCKET_NAME"]
 
 
 def convert_record_metadata(record_metadata):
-    return {}
+    converter, metadata = convert_metadata(record_metadata, _LOOKUP)
+    return metadata
 
 
 def lookup_s3_path(session, file_id, file_key, record_id, is_draft):
@@ -43,7 +47,8 @@ def export_record(
     community = record_metadata.get("oarepo:primaryCommunity", None)
     if community == "general":
         community = None
-    is_draft = record_metadata.get("oarepo:draft", False)
+    is_draft = record_metadata.get("oarepo:draft", False) # TODO: The one record in "approved" state, not editing or published state would not resolve as draft; just for info
+
     files = [
         {
             "key": f["key"],
