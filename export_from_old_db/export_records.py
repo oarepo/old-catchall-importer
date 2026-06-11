@@ -20,16 +20,8 @@ old_catchall_s3 = boto3.client(
 old_catchall_bucket_name = os.environ["OLD_CATCHALL_S3_BUCKET_NAME"]
 
 
-UNMAPPED_EXCEPTIONS = []
-MAPPING_IRREGULARITIES = []
-
 def convert_record_metadata(record_metadata):
-    global UNMAPPED_EXCEPTIONS, MAPPING_IRREGULARITIES
     converter, metadata = convert_metadata(record_metadata, _LOOKUP)
-    if converter.unmapped:
-        UNMAPPED_EXCEPTIONS.append(converter.unmapped)
-    if converter.mapping_irregularities:
-        MAPPING_IRREGULARITIES.append(converter.mapping_irregularities)
     return metadata
 
 
@@ -46,8 +38,6 @@ def lookup_s3_path(session, file_id, file_key, record_id, is_draft):
         return None
 
 
-
-
 def export_record(
     session, record_id, record_uuid, record_metadata, created, updated, output_path
 ):
@@ -57,7 +47,7 @@ def export_record(
     community = record_metadata.get("oarepo:primaryCommunity", None)
     if community == "general":
         community = None
-    is_draft = record_metadata.get("oarepo:draft", False) # TODO: The approved but published record isn't draft; for info
+    is_draft = record_metadata.get("oarepo:draft", False) # TODO: The one record in "approved" state, not editing or published state would not resolve as draft; just for info
 
     files = [
         {
@@ -69,7 +59,6 @@ def export_record(
         }
         for f in record_metadata.get("_files", [])
     ]
-
     converted_record = {
         "id": record_id,
         "owner": user_identity,
@@ -105,4 +94,3 @@ def export_records(session, output_dir):
             record.updated,
             record_path,
         )
-    print()

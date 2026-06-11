@@ -4,8 +4,9 @@ import sqlalchemy
 from sqlalchemy.orm import Session
 
 engine = sqlalchemy.create_engine(
-    "postgresql://nr_data_prod:nr_data_prod@localhost:5832/nr_data_prod"
+    "postgresql://catchall:catchall@localhost:5832/catchall"
 )
+
 
 @contextlib.contextmanager
 def get_session():
