@@ -27,7 +27,7 @@ def _export_eppns():
 
 
 @cli.command(name="records")
-@click.argument("output_dir", default="exported_data/tmp_records")
+@click.argument("output_dir", default="exported_data/records")
 def _export_records(output_dir):
     """Export records from the old database."""
     with get_session() as session:

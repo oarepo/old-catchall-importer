@@ -14,3 +14,6 @@ source "${IMPORTER_PATH}"/.venv/bin/activate
 
 # export users
 catchall-export users
+
+# export records
+catchall-export records

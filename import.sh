@@ -52,4 +52,10 @@ if [ $IMPORT_USERS == 'true' ] ; then
     # read -r -p "Press Enter when workers show no activity..."
 fi
 
+if [ $IMPORT_RECORDS == 'true' ] ; then
+    # import records
+    echo "Importing records..."
+    invenio shell ${IMPORTER_PATH}/import_to_new_repo/records.py ${IMPORTER_PATH}/exported_data/records/
+fi
+
 echo "All done!"
