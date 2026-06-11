@@ -9,6 +9,7 @@ invenio --help &>/dev/null || { echo "invenio command not available. Please call
 
 IMPORT_COMMUNITIES=true
 IMPORT_USERS=true
+IMPORT_RECORDS=true
 
 # iterate args
 for arg in "$@"; do
@@ -18,6 +19,9 @@ for arg in "$@"; do
             ;;
         --skip-users)
             IMPORT_USERS=false
+            ;;
+        --skip-records)
+            IMPORT_RECORDS=false
             ;;
         --help)
             echo "Usage: $0 [--skip-communities] [--skip-users]"
