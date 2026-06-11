@@ -13,7 +13,11 @@ dependencies = [
     "flask",
     "requests",
     "boto3",
-    "tqdm"
+    "tqdm",
+
+    "marshmallow",
+    "marshmallow_utils",
+    "langcodes",
 ]
 
 [project.scripts]
