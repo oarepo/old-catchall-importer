@@ -15,22 +15,24 @@ Record representation:
 
 """
 
+import base64
 import contextlib
 import datetime
 import hashlib
 import json
 import os
 import sys
+import traceback
 from collections import Counter
 from contextvars import ContextVar
 from pathlib import Path
-from turtle import save
 from typing import Any
 
 import boto3
 import click
+import requests
+from alembic.command import current
 from datasets.model import datasets_model
-from dotenv import load_dotenv
 from flask import current_app
 from invenio_access.permissions import system_identity
 from invenio_accounts.models import User, UserIdentity
@@ -42,6 +44,8 @@ from oarepo_runtime.proxies import current_runtime
 from oarepo_runtime.typing import record_from_result
 from sqlalchemy import text
 from tqdm import tqdm
+
+MULTIPART_CHUNK_SIZE = 16 * 1024 * 1024  # 16 MB
 
 preassigned_record_id = ContextVar("preassigned_record_id")
 
@@ -217,27 +221,89 @@ def make_draft_record(record_service, draft_record, record_dict):
     return draft_record
 
 
-def compute_checksum(s3_path, expected_size, pass_no, total_passes):
+class FileLimiter(object):
+    def __init__(self, file_obj, read_limit):
+        self.read_limit = read_limit
+        self.amount_seen = 0
+        self.file_obj = file_obj
+
+        # So that requests doesn't try to chunk the upload but will instead stream it:
+        self.len = read_limit
+
+    def read(self, amount=-1):
+        if self.amount_seen >= self.read_limit:
+            return b""
+        remaining_amount = self.read_limit - self.amount_seen
+        if amount < 0 or amount > remaining_amount:
+            amount = remaining_amount
+        data = self.file_obj.read(min(amount, 120000))
+        self.amount_seen += len(data)
+        return data
+
+
+def encode_digest(digest) -> str:
+    """Encode to base64 as expected by s3 Content-MD5 header"""
+    return base64.b64encode(digest).decode("utf-8")
+
+
+def compute_checksum(
+    s3_path, expected_size, pass_no, total_passes, chunk_size
+) -> tuple[str, tuple[tuple[str, str, str], ...]] | None:
+    """
+    For each chunk, compute md5, sha256, sha512 and return as tuples"""
+    ret = []
+    total_md5 = hashlib.md5()
+
     try:
         response = old_catchall_s3.get_object(
             Bucket=old_catchall_bucket_name, Key=s3_path
         )["Body"]
-        md5 = hashlib.md5()
-        size = 0
+
         with tqdm(
             total=expected_size,
             unit="B",
             unit_scale=True,
             leave=False,
-            desc=f"Computing checksum (pass {pass_no} / {total_passes})",
+            desc=f"Computing (part) checksums (pass {pass_no} / {total_passes})",
         ) as pbar:
-            for chunk in response.iter_chunks(chunk_size=120000):
-                md5.update(chunk)
-                size += len(chunk)
-                pbar.update(len(chunk))
-        if size != expected_size:
-            raise ValueError(f"Expected size for {s3_path} {expected_size}, got {size}")
-        return md5.hexdigest()
+            size = 0
+            while True:
+                f = FileLimiter(response, chunk_size)
+                md5 = hashlib.md5()
+                sha256 = hashlib.sha256()
+                sha512 = hashlib.sha512()
+
+                chunk_size = 0
+                while True:
+                    chunk = f.read(120000)
+                    if not chunk:
+                        break
+                    total_md5.update(chunk)
+                    md5.update(chunk)
+                    sha256.update(chunk)
+                    sha512.update(chunk)
+                    chunk_size += len(chunk)
+                    pbar.update(len(chunk))
+                if chunk_size == 0:
+                    break
+                if chunk_size != min(chunk_size, expected_size - size):
+                    raise ValueError(
+                        f"Expected chunk size {min(chunk_size, expected_size - size)}, got {chunk_size}"
+                    )
+                ret.append(
+                    (
+                        encode_digest(md5.digest()),
+                        encode_digest(sha256.digest()),
+                        encode_digest(sha512.digest()),
+                    )
+                )
+                size += chunk_size
+
+            if size != expected_size:
+                raise ValueError(
+                    f"Expected size for {s3_path} {expected_size}, got {size}"
+                )
+            return (total_md5.hexdigest(), tuple(ret))
     except Exception as e:
         click.secho(f"        Failed to compute checksum for {s3_path}: {e}", fg="red")
         return None
@@ -261,46 +327,76 @@ def compute_saved_checksum(stream, expected_size):
 
 
 def upload_single_file(
-    record_service, draft_record, file_key, s3_path, checksum, expected_size
+    record_service, draft_record, file_key, s3_path, md5_checksum, expected_size
 ):
-    # pre-flight - download the file from S3 and check the checksum
 
+    # determine whether to use multipart upload
+    is_multipart = expected_size > MULTIPART_CHUNK_SIZE
+    chunk_size = MULTIPART_CHUNK_SIZE
+    n_parts = 1
+
+    while (n_parts := (expected_size + chunk_size - 1) // chunk_size) > 10000:
+        chunk_size *= 2
+
+    click.secho(
+        f"        multipart upload: {is_multipart}, chunk size {chunk_size}, n_parts {n_parts}",
+        fg="yellow",
+    )
+
+    # pre-flight - download the file from S3 and check the checksum
     # we do not have checksums everywhere, so let's compute them 5 times and check they match
-    n_checksums = 5
-    raw_checksums = [
-        compute_checksum(s3_path, expected_size, pass_no + 1, n_checksums)
+    n_checksums = 2
+    checksums = {
+        compute_checksum(s3_path, expected_size, pass_no + 1, n_checksums, chunk_size)
         for pass_no in range(n_checksums)
-    ]
-    checksums = Counter([x for x in raw_checksums if x is not None])
-    checksum, count = checksums.most_common(1)[0]
-    if count < n_checksums - 1:
+    }
+    if len(checksums) > 1:
+        raise ValueError(f"Checksum mismatch: {checksums}")
+
+    computed_checksums = list(checksums)[0]
+    if computed_checksums is None:
+        raise ValueError(f"Failed to compute checksum for {s3_path}")
+
+    md5_checksum, chunk_checksums = computed_checksums
+
+    if len(chunk_checksums) != n_parts:
         raise ValueError(
-            f"Checksum mismatch: {checksum} (computed {count} times out of {n_checksums}, expected at least {n_checksums - 1})"
+            f"Expected {n_parts} chunk checksums, got {len(chunk_checksums)}"
         )
 
     response = old_catchall_s3.get_object(Bucket=old_catchall_bucket_name, Key=s3_path)
     object_stream = response["Body"]
 
     click.secho(
-        f"        uploading to the repository, checksum {checksum}", fg="yellow"
+        f"        uploading to the repository, checksum {md5_checksum}", fg="yellow"
     )
-    record_service.draft_files.init_files(
+    initialized = record_service.draft_files.init_files(
         system_identity,
         draft_record["id"],
         [
             {
                 "key": file_key,
                 "size": expected_size,
-                "checksum": checksum,
+                "checksum": "md5:" + md5_checksum,
+                "transfer": {
+                    "type": "M" if is_multipart else "L",
+                    "parts": n_parts,
+                    "part_size": chunk_size,
+                },
             }
         ],
-    )
-    record_service.draft_files.set_file_content(
-        system_identity,
-        draft_record["id"],
-        file_key,
-        object_stream,
-    )
+    ).to_dict()["entries"][0]
+    if is_multipart:
+        upload_via_multipart(
+            initialized, chunk_size, object_stream, expected_size, chunk_checksums
+        )
+    else:
+        record_service.draft_files.set_file_content(
+            system_identity,
+            draft_record["id"],
+            file_key,
+            object_stream,
+        )
     committed_record = record_from_result(
         record_service.draft_files.commit_file(
             system_identity, draft_record["id"], file_key
@@ -313,9 +409,9 @@ def upload_single_file(
             system_identity, committed_record["id"], file_key
         ).open_stream(mode="rb") as stream:
             saved_checksum = compute_saved_checksum(stream, expected_size)
-            if saved_checksum != checksum:
+            if saved_checksum != md5_checksum:
                 raise ValueError(
-                    f"Saved checksum mismatch: expected {checksum}, got {saved_checksum}"
+                    f"Saved checksum mismatch: expected {md5_checksum}, got {saved_checksum}"
                 )
     except:
         record_service.draft_files.delete_file(
@@ -324,6 +420,40 @@ def upload_single_file(
             file_key,
         )
         raise
+
+
+def upload_via_multipart(
+    initialized, chunk_size, object_stream, expected_size, chunk_checksums
+):
+    size = 0
+    for part_metadata, chunk_checksum in tqdm(
+        zip(initialized["links"]["parts"], chunk_checksums),
+        total=len(chunk_checksums),
+        leave=False,
+        unit="part",
+    ):
+        part_url = part_metadata["url"]
+        current_chunk_size = min(chunk_size, expected_size - size)
+        size += upload_single_part(
+            part_url, object_stream, current_chunk_size, chunk_checksum[0]
+        )
+        if size == expected_size:
+            break
+
+
+def upload_single_part(part_url, object_stream, chunk_size, part_md5):
+    resp = requests.put(
+        part_url,
+        data=FileLimiter(object_stream, chunk_size),
+        headers={"Content-MD5": part_md5, "Content-Length": str(chunk_size)},
+    )
+    if resp.status_code != 200:
+        click.secho(
+            f"    Failed to upload part: {resp.status_code} {resp.text}", fg="red"
+        )
+        click.secho(resp.text, fg="red")
+    resp.raise_for_status()
+    return chunk_size
 
 
 def upload_files(record_service, draft_record, record_dict):
@@ -353,8 +483,8 @@ def upload_files(record_service, draft_record, record_dict):
                 continue
 
             # partially uploaded, remove the file
-            record_service.draft_files.delete(
-                system_identity, draft_record.id, file_key
+            record_service.draft_files.delete_file(
+                system_identity, draft_record["id"], file_key
             )
 
         for attempt in range(3):
@@ -457,6 +587,7 @@ def import_records(records_dir: str, identifiers_to_import: list[str]):
             print(f"SUCCESS: {record['id']}", file=status_stream, flush=True)
         except Exception:
             print(f"FAILURE: {record['id']}", file=status_stream, flush=True)
+            traceback.print_exc()
     status_stream.close()
 
 
