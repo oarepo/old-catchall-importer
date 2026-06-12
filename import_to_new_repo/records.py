@@ -441,8 +441,17 @@ def import_records(records_dir: str, identifiers_to_import: list[str]):
             print(f"SKIPPED-DRAFT: {record['id']}", file=status_stream, flush=True)
             continue
         if record["access"]["files"] != "public":
-            print(f"SKIPPED-RESTRICTED: {record['id']}", file=status_stream, flush=True)
-            continue
+            print(
+                f"CHECK-RESTRICTED-FILES-AFTER-IMPORT: {record['id']}",
+                file=status_stream,
+                flush=True,
+            )
+            if record["access"]["record"] != "public":
+                print(
+                    f"CHECK-RESTRICTED-RECORD-AFTER-IMPORT: {record['id']}",
+                    file=status_stream,
+                    flush=True,
+                )
         try:
             upload_record(record)
             print(f"SUCCESS: {record['id']}", file=status_stream, flush=True)
