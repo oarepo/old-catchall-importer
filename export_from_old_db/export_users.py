@@ -5,7 +5,7 @@ from yaml import safe_dump
 
 from .models import AccountsRole, AccountsUser
 
-SKIPPED_COMMUNITIES = {"general"}
+SKIPPED_COMMUNITIES = {"general", "generic"}
 
 
 def export_users(session):
@@ -18,7 +18,11 @@ def export_users(session):
     for role in session.query(AccountsRole).order_by("id").all():
         if role.name.startswith("community:"):
             _, community_name, community_role = role.name.split(":")
+
             community_map[role.id] = (community_name, community_role)
+
+            if community_name in SKIPPED_COMMUNITIES:
+                continue
             community_data[community_name] = {
                 "name": community_name,
                 "description": (role.description or "")
@@ -83,12 +87,12 @@ def export_users(session):
 
 
 def get_user_roles(roles, community_map):
-    return [role.id for role in roles if role.id not in community_map]
+    return [role.name for role in roles if role.id not in community_map]
 
 
 community_role_mapping = {
-    "member": "member",
-    "publisher": "submitter",
+    "member": "submitter",
+    "publisher": "curator",
     "curator": "curator",
 }
 

@@ -63,6 +63,8 @@ def export_record(
     converter, metadata, record_data = convert_old_catchall_metadata(
         record_metadata, _LOOKUP
     )
+    if community in ("generic", "general"):
+        community = None
 
     converted_record = {
         "id": record_id,
