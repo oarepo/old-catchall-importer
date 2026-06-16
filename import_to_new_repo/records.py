@@ -370,6 +370,18 @@ def upload_single_file(
     click.secho(
         f"        uploading to the repository, checksum {md5_checksum}", fg="yellow"
     )
+
+    if is_multipart:
+        transfer_metadata = {
+            "transfer": {
+                "type": "M",
+                "parts": n_parts,
+                "part_size": chunk_size,
+            }
+        }
+    else:
+        transfer_metadata = {}
+
     initialized = record_service.draft_files.init_files(
         system_identity,
         draft_record["id"],
@@ -378,11 +390,7 @@ def upload_single_file(
                 "key": file_key,
                 "size": expected_size,
                 "checksum": "md5:" + md5_checksum,
-                "transfer": {
-                    "type": "M" if is_multipart else "L",
-                    "parts": n_parts,
-                    "part_size": chunk_size,
-                },
+                **transfer_metadata,
             }
         ],
     ).to_dict()["entries"][0]
