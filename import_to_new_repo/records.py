@@ -382,7 +382,7 @@ def upload_single_file(
     else:
         transfer_metadata = {}
 
-    initialized = record_service.draft_files.init_files(
+    initialized_entries = record_service.draft_files.init_files(
         system_identity,
         draft_record["id"],
         [
@@ -393,7 +393,10 @@ def upload_single_file(
                 **transfer_metadata,
             }
         ],
-    ).to_dict()["entries"][0]
+    ).to_dict()["entries"]
+    initialized = next(
+        (entry for entry in initialized_entries if entry["key"] == file_key)
+    )
     if is_multipart:
         upload_via_multipart(
             initialized, chunk_size, object_stream, expected_size, chunk_checksums
@@ -476,8 +479,7 @@ def upload_files(record_service, draft_record, record_dict):
             continue
 
         click.secho(f"    Uploading file '{file_key}' ({size} bytes)", fg="yellow")
-
-        if file_key in draft_record.files:
+        if file_key in list(draft_record.files.keys()):
             dumped_file = FileSchema().dump(draft_record.files[file_key])
             click.secho(
                 f"        File already exists, status: {dumped_file['status']}",
@@ -491,6 +493,7 @@ def upload_files(record_service, draft_record, record_dict):
                 continue
 
             # partially uploaded, remove the file
+            click.secho("        deleting partially uploaded file", fg="yellow")
             record_service.draft_files.delete_file(
                 system_identity, draft_record["id"], file_key
             )
