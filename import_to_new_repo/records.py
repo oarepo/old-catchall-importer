@@ -20,12 +20,11 @@ import contextlib
 import datetime
 import hashlib
 import json
-import multiprocessing
 import os
 import sys
 import traceback
-from collections import Counter
 from contextvars import ContextVar
+from multiprocessing import Pool
 from pathlib import Path
 from typing import Any
 
@@ -45,6 +44,17 @@ from oarepo_runtime.proxies import current_runtime
 from oarepo_runtime.typing import record_from_result
 from sqlalchemy import text
 from tqdm import tqdm
+
+# 8 threads to upload parts in parallel
+_pool = None
+
+
+def get_pool():
+    global _pool
+    if _pool is None:
+        _pool = Pool(8)
+    return _pool
+
 
 MULTIPART_CHUNK_SIZE = 16 * 1024 * 1024  # 16 MB
 
@@ -362,9 +372,6 @@ def upload_single_file(
             f"Expected {n_parts} chunk checksums, got {len(chunk_checksums)}"
         )
 
-    response = old_catchall_s3.get_object(Bucket=old_catchall_bucket_name, Key=s3_path)
-    object_stream = response["Body"]
-
     click.secho(
         f"        uploading to the repository, checksum {md5_checksum}", fg="yellow"
     )
@@ -397,9 +404,12 @@ def upload_single_file(
     )
     if is_multipart:
         upload_via_multipart(
-            initialized, chunk_size, object_stream, expected_size, chunk_checksums
+            initialized, chunk_size, s3_path, expected_size, chunk_checksums
         )
     else:
+        object_stream = old_catchall_s3.get_object(
+            Bucket=old_catchall_bucket_name, Key=s3_path
+        )["Body"]
         record_service.draft_files.set_file_content(
             system_identity,
             draft_record["id"],
@@ -432,60 +442,31 @@ def upload_single_file(
 
 
 def upload_via_multipart(
-    initialized, chunk_size, object_stream, expected_size, chunk_checksums
+    initialized, chunk_size, s3_path, expected_size, chunk_checksums
 ):
     size = 0
-    for part_metadata, chunk_checksum in tqdm(
-        zip(initialized["links"]["parts"], chunk_checksums),
-        total=len(chunk_checksums),
-        leave=False,
-        unit="part",
+
+    parts_to_upload = []
+    for part_metadata, chunk_checksum in zip(
+        initialized["links"]["parts"], chunk_checksums
     ):
+        # format: part_url, s3_path, part_number, chunk_size, part_md5
         part_url = part_metadata["url"]
         current_chunk_size = min(chunk_size, expected_size - size)
-        size += upload_single_part(
-            part_url, object_stream, current_chunk_size, chunk_checksum[0]
+        parts_to_upload.append(
+            (part_url, s3_path, size, current_chunk_size, chunk_checksum[0])
         )
-        if size == expected_size:
-            break
+        size += current_chunk_size
 
+    size = 0
+    from import_to_new_repo.uploader import upload_single_part
 
-READ_SIZE = 1024 * 1024  # 1 MB per read
-
-
-class SizedStreamReader:
-    """Iterable with a known length so requests sends Content-Length, not chunked encoding."""
-
-    def __init__(self, stream, size):
-        self._stream = stream
-        self._size = size
-
-    def __len__(self):
-        return self._size
-
-    def __iter__(self):
-        remaining = self._size
-        while remaining > 0:
-            chunk = self._stream.read(min(READ_SIZE, remaining))
-            if not chunk:
-                break
-            remaining -= len(chunk)
-            yield chunk
-
-
-def upload_single_part(part_url, object_stream, chunk_size, part_md5):
-    resp = requests.put(
-        part_url,
-        data=SizedStreamReader(object_stream, chunk_size),
-        headers={"Content-MD5": part_md5},
-    )
-    if resp.status_code != 200:
-        click.secho(
-            f"    Failed to upload part: {resp.status_code} {resp.text}", fg="red"
-        )
-        click.secho(resp.text, fg="red")
-    resp.raise_for_status()
-    return chunk_size
+    with tqdm(total=expected_size, unit="B", unit_scale=True, leave=False) as pbar:
+        for uploaded_size in get_pool().imap_unordered(
+            upload_single_part, parts_to_upload
+        ):
+            size += uploaded_size
+            pbar.update(uploaded_size)
 
 
 def upload_files(record_service, draft_record, record_dict):
@@ -628,4 +609,7 @@ if __name__ == "__main__":
         current_app.config.get("test")
     except:  # noqa E722
         raise Exception("This file needs to be run via invenio shell")
+    # add the directory of the file to the python path, so that we can import from import_to_new_repo
+    sys.path.append(str(Path(__file__).parent.parent))
+
     import_records(sys.argv[1], sys.argv[2:])
