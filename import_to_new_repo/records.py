@@ -20,6 +20,7 @@ import contextlib
 import datetime
 import hashlib
 import json
+import multiprocessing
 import os
 import sys
 import traceback
@@ -105,9 +106,6 @@ def patch_pid_field():
     """
     record_cls: RDMRecord = datasets_model.Record
     draft_cls: RDMDraft = datasets_model.Draft
-
-    print(record_cls, record_cls.pid.field._provider)
-    print(draft_cls, draft_cls.pid.field._provider)
 
     class RecordIdFromContextProvider(record_cls.pid.field._provider):
         """A pid provider that always returns id from a contextvar."""
@@ -236,7 +234,7 @@ class FileLimiter(object):
         remaining_amount = self.read_limit - self.amount_seen
         if amount < 0 or amount > remaining_amount:
             amount = remaining_amount
-        data = self.file_obj.read(min(amount, 120000))
+        data = self.file_obj.read(min(amount, 1200000))
         self.amount_seen += len(data)
         return data
 
@@ -452,11 +450,34 @@ def upload_via_multipart(
             break
 
 
+READ_SIZE = 1024 * 1024  # 1 MB per read
+
+
+class SizedStreamReader:
+    """Iterable with a known length so requests sends Content-Length, not chunked encoding."""
+
+    def __init__(self, stream, size):
+        self._stream = stream
+        self._size = size
+
+    def __len__(self):
+        return self._size
+
+    def __iter__(self):
+        remaining = self._size
+        while remaining > 0:
+            chunk = self._stream.read(min(READ_SIZE, remaining))
+            if not chunk:
+                break
+            remaining -= len(chunk)
+            yield chunk
+
+
 def upload_single_part(part_url, object_stream, chunk_size, part_md5):
     resp = requests.put(
         part_url,
-        data=FileLimiter(object_stream, chunk_size),
-        headers={"Content-MD5": part_md5, "Content-Length": str(chunk_size)},
+        data=SizedStreamReader(object_stream, chunk_size),
+        headers={"Content-MD5": part_md5},
     )
     if resp.status_code != 200:
         click.secho(
