@@ -390,4 +390,4 @@ pnpm-lock.yaml
 
 *.sql
 
-exported_data/*
+exported_data*/*
