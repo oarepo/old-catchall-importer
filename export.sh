@@ -34,4 +34,4 @@ fi
 catchall-export users
 
 # export records
-catchall-export records
+catchall-export records --split 4

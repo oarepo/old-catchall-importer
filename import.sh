@@ -10,10 +10,11 @@ invenio --help &>/dev/null || { echo "invenio command not available. Please call
 IMPORT_COMMUNITIES=true
 IMPORT_USERS=true
 IMPORT_RECORDS=true
+RECORDS_FOLDER=
 
 # iterate args
-for arg in "$@"; do
-    case $arg in
+while [[ $# -gt 0 ]]; do
+    case $1 in
         --skip-communities)
             IMPORT_COMMUNITIES=false
             ;;
@@ -23,15 +24,20 @@ for arg in "$@"; do
         --skip-records)
             IMPORT_RECORDS=false
             ;;
+        --records-folder)
+            shift
+            RECORDS_FOLDER=$1
+            ;;
         --help)
-            echo "Usage: $0 [--skip-communities] [--skip-users]"
+            echo "Usage: $0 [--skip-communities] [--skip-users] [--skip-records] [--records-folder FOLDER]"
             exit 0
             ;;
         *)
-            echo "Usage: $0 [--skip-communities] [--skip-users]"
-            exit 0
+            echo "Usage: $0 [--skip-communities] [--skip-users] [--skip-records] [--records-folder FOLDER]"
+            exit 1
             ;;
     esac
+    shift
 done
 
 
@@ -59,7 +65,7 @@ fi
 if [ $IMPORT_RECORDS == 'true' ] ; then
     # import records
     echo "Importing records..."
-    invenio shell ${IMPORTER_PATH}/import_to_new_repo/records.py ${IMPORTER_PATH}/exported_data/records/
+    invenio shell ${IMPORTER_PATH}/import_to_new_repo/records.py ${IMPORTER_PATH}/exported_data/records/${RECORDS_FOLDER}
 fi
 
 echo "All done!"

@@ -94,17 +94,15 @@ def prepare_record(record):
         record["doi"] = str(doi)
 
 
-# TODO: restricted records !!!
-
-
 def load_records_to_memory(
     records_dir: Path, identifiers_to_import: list[str]
 ) -> list[dict[str, Any]]:
     records = []
-    for fn in records_dir.glob("*.json"):
+    for fn in records_dir.rglob("*.json"):
         if identifiers_to_import and fn.name[:-5] not in identifiers_to_import:
             continue
         records.append(json.loads(fn.read_text()))
+    records.sort(key=lambda r: r["total_files_size"])
     return records
 
 

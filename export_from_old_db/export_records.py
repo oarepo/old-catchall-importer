@@ -37,9 +37,7 @@ def lookup_s3_path(session, file_id, file_key, record_id, is_draft):
         return None
 
 
-def export_record(
-    session, record_id, record_uuid, record_metadata, created, updated, output_path
-):
+def convert_record(session, record_id, record_uuid, record_metadata, created, updated):
     owner_id = record_metadata["oarepo:ownedBy"]
     owner = session.query(AccountsUser).get(owner_id)
     user_identity = owner.oauthclient_useridentity[0].id
@@ -60,6 +58,7 @@ def export_record(
         }
         for f in record_metadata.get("_files", [])
     ]
+    total_files_size = sum(f["size"] for f in files)
     converter, metadata, record_data = convert_old_catchall_metadata(
         record_metadata, _LOOKUP
     )
@@ -76,14 +75,16 @@ def export_record(
         "access": record_data["access"],
         "created": created.isoformat(),
         "updated": updated.isoformat(),
+        "total_files_size": total_files_size,
     }
-    with open(output_path, "w") as f:
-        json.dump(converted_record, f, ensure_ascii=False, indent=2)
+    return converted_record
 
 
-def export_records(session, output_dir):
+def export_records(session, output_dir, split=None):
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
+
+    all_converted = []
 
     for record in tqdm(
         session.query(RecordsMetadata), total=session.query(RecordsMetadata).count()
@@ -92,13 +93,33 @@ def export_records(session, output_dir):
             # deleted record
             continue
         record_id = f"datst.{record.json['InvenioID']}"
-        record_path = output_path / f"{record_id}.json"
-        export_record(
+        converted_record = convert_record(
             session,
             record_id,
             record.id,
             record.json,
             record.created,
             record.updated,
-            record_path,
         )
+        all_converted.append(
+            (
+                record_id,
+                converted_record,
+            )
+        )
+
+    all_converted.sort(key=lambda x: x[1]["total_files_size"])
+
+    if split:
+        output_directories = [output_path / f"split_{i + 1}" for i in range(int(split))]
+        for directory in output_directories:
+            directory.mkdir(parents=True, exist_ok=True)
+    else:
+        output_directories = [output_path]
+
+    idx = 0
+    for record_id, converted_record in all_converted:
+        record_path = output_directories[idx] / f"{record_id}.json"
+        with open(record_path, "w") as f:
+            json.dump(converted_record, f, ensure_ascii=False, indent=2)
+        idx = (idx + 1) % len(output_directories)

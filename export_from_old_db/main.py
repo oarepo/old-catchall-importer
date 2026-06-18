@@ -28,7 +28,12 @@ def _export_eppns():
 
 @cli.command(name="records")
 @click.argument("output_dir", default="exported_data/records")
-def _export_records(output_dir):
+@click.option(
+    "--split",
+    default=None,
+    help="Split records into multiple directories for parallel import",
+)
+def _export_records(output_dir, split):
     """Export records from the old database."""
     with get_session() as session:
-        export_records(session, output_dir)
+        export_records(session, output_dir, split)
