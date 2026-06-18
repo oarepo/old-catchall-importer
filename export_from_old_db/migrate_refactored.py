@@ -1242,6 +1242,10 @@ class RecordDataConverter:
             project_id = clean(fr.get("projectID"))
             project_name = clean(fr.get("projectName"))
             funding_program = clean(fr.get("fundingProgram"))
+
+            if project_id == "ER 341/20-1":
+                project_name = "Deutsche Forschungsgemeinschaft"
+
             award_title = AWARD_TABLE[(project_id, project_name, funding_program)][
                 "projectTitle"
             ]

@@ -1,5 +1,35 @@
 [
   {
+    "projectID": "566668822",
+    "projectName": "Integration of Ion Mobility Analysis in a Linear Quadrupole Ion Trap for Enhanced Analytical Capability",
+    "fundingProgram": "Walter-Benjamin Programme",
+    "projectTitle": {
+      "en": "Integration of Ion Mobility Analysis in a Linear Quadrupole Ion Trap for Enhanced Analytical Capability"
+    },
+    "occurrences": 0,
+    "record_ids": []
+  },
+  {
+    "projectID": "EH22_008/0004558",
+    "projectName": "Advanced MULTIscaLe materials for key Enabling Technologies",
+    "fundingProgram": "EH - Jan Amos Comenius Operational Program (2021 - 2027)",
+    "projectTitle": {
+      "en": "Advanced MULTIscaLe materials for key Enabling Technologies"
+    },
+    "occurrences": 0,
+    "record_ids": []
+  },
+  {
+    "projectID": "ER 341/20-1",
+    "projectName": "Deutsche Forschungsgemeinschaft",
+    "fundingProgram": "",
+    "projectTitle": {
+      "en": "Deutsche Forschungsgemeinschaft"
+    },
+    "occurrences": 0,
+    "record_ids": []
+  },
+  {
     "projectID": "SS07020356",
     "projectName": "Aerátor s prstencovým vodním skokem pro eliminaci nepříznivých vlivů anoxické vody pro život ve vodním prostředí",
     "fundingProgram": "Program aplikovaného výzkumu, experimentálního vývoje a inovací v oblasti životního prostředí - Prostředí pro život",
@@ -256,12 +286,7 @@
       "en": ""
     },
     "occurrences": 4,
-    "record_ids": [
-      "74f00-v0b78",
-      "8n8wk-52567",
-      "a2nf4-keh97",
-      "pdmwq-5vz04"
-    ]
+    "record_ids": ["74f00-v0b78", "8n8wk-52567", "a2nf4-keh97", "pdmwq-5vz04"]
   },
   {
     "projectID": "295023",
@@ -271,12 +296,7 @@
       "en": ""
     },
     "occurrences": 4,
-    "record_ids": [
-      "74f00-v0b78",
-      "8n8wk-52567",
-      "a2nf4-keh97",
-      "pdmwq-5vz04"
-    ]
+    "record_ids": ["74f00-v0b78", "8n8wk-52567", "a2nf4-keh97", "pdmwq-5vz04"]
   },
   {
     "projectID": "752/2024",
@@ -287,12 +307,7 @@
       "cs": "Nástroj na automatickou anotaci a prohledávání velkých sad proteinů na základě podobnosti jejich struktur"
     },
     "occurrences": 4,
-    "record_ids": [
-      "cd6zk-k0v44",
-      "ej5rz-1fn34",
-      "gct7q-es989",
-      "t45hr-bcw17"
-    ]
+    "record_ids": ["cd6zk-k0v44", "ej5rz-1fn34", "gct7q-es989", "t45hr-bcw17"]
   },
   {
     "projectID": "CEP 153654684",
@@ -303,12 +318,7 @@
       "cs": "Šetření knihoven ústavů AV ČR"
     },
     "occurrences": 4,
-    "record_ids": [
-      "3e5s9-46563",
-      "4wf62-cdw92",
-      "5cp89-jpf05",
-      "rja3t-71064"
-    ]
+    "record_ids": ["3e5s9-46563", "4wf62-cdw92", "5cp89-jpf05", "rja3t-71064"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -318,12 +328,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 4,
-    "record_ids": [
-      "9sg2b-myd78",
-      "jtw08-mz650",
-      "sdmsm-0ab72",
-      "zz0vd-s1136"
-    ]
+    "record_ids": ["9sg2b-myd78", "jtw08-mz650", "sdmsm-0ab72", "zz0vd-s1136"]
   },
   {
     "projectID": "EH22_008/0004572",
@@ -333,12 +338,7 @@
       "en": "QM4ST"
     },
     "occurrences": 4,
-    "record_ids": [
-      "74f00-v0b78",
-      "8n8wk-52567",
-      "a2nf4-keh97",
-      "pdmwq-5vz04"
-    ]
+    "record_ids": ["74f00-v0b78", "8n8wk-52567", "a2nf4-keh97", "pdmwq-5vz04"]
   },
   {
     "projectID": "EH22_008/0004575",
@@ -348,12 +348,7 @@
       "en": "RNA for therapy"
     },
     "occurrences": 4,
-    "record_ids": [
-      "2wd1t-95n56",
-      "6pjaf-g8g07",
-      "b0x33-8ef95",
-      "qgz5g-hca80"
-    ]
+    "record_ids": ["2wd1t-95n56", "6pjaf-g8g07", "b0x33-8ef95", "qgz5g-hca80"]
   },
   {
     "projectID": "GA21-25486S",
@@ -363,12 +358,7 @@
       "en": "Selected ion flow drift tube mass spectrometry with negative ions and nitrogen carrier gas"
     },
     "occurrences": 4,
-    "record_ids": [
-      "fkw19-mxb81",
-      "grwf8-3c725",
-      "gzx8g-3tt47",
-      "hf5x1-ac329"
-    ]
+    "record_ids": ["fkw19-mxb81", "grwf8-3c725", "gzx8g-3tt47", "hf5x1-ac329"]
   },
   {
     "projectID": "GA23-06364S",
@@ -378,12 +368,7 @@
       "en": "Excited state molecular dynamics with non-adiabatic and spin-orbit effects assisted by machine learning"
     },
     "occurrences": 4,
-    "record_ids": [
-      "9sg2b-myd78",
-      "df8g2-52k82",
-      "sdmsm-0ab72",
-      "t55em-ndc28"
-    ]
+    "record_ids": ["9sg2b-myd78", "df8g2-52k82", "sdmsm-0ab72", "t55em-ndc28"]
   },
   {
     "projectID": "GA24-10992S",
@@ -393,12 +378,7 @@
       "en": "Trapped Electrons and Ions Join Forces to Detect Single Photons"
     },
     "occurrences": 4,
-    "record_ids": [
-      "74f00-v0b78",
-      "8n8wk-52567",
-      "a2nf4-keh97",
-      "pdmwq-5vz04"
-    ]
+    "record_ids": ["74f00-v0b78", "8n8wk-52567", "a2nf4-keh97", "pdmwq-5vz04"]
   },
   {
     "projectID": "GA24-11390S",
@@ -408,12 +388,7 @@
       "en": "Atmospheric Aerosol Nanoclusters in Molecular Beam Experiments and Computer Simulations"
     },
     "occurrences": 4,
-    "record_ids": [
-      "75sy4-cbt74",
-      "bn6fw-ypj06",
-      "fr720-vq953",
-      "yqs1c-ekp89"
-    ]
+    "record_ids": ["75sy4-cbt74", "bn6fw-ypj06", "fr720-vq953", "yqs1c-ekp89"]
   },
   {
     "projectID": "GX20-00885X",
@@ -423,12 +398,7 @@
       "en": "Novel Functionalized (Bio)polymers Based on DNA Display of Small Molecules"
     },
     "occurrences": 4,
-    "record_ids": [
-      "2aqm7-66s35",
-      "2wd1t-95n56",
-      "6pjaf-g8g07",
-      "pvtzv-zpf79"
-    ]
+    "record_ids": ["2aqm7-66s35", "2wd1t-95n56", "6pjaf-g8g07", "pvtzv-zpf79"]
   },
   {
     "projectID": "AB 63/25-1",
@@ -438,11 +408,7 @@
       "en": "High resolution mass spectrometry laboratory experiments for the analysis of past and future space data"
     },
     "occurrences": 3,
-    "record_ids": [
-      "a781b-nxa60",
-      "bed0s-7xw90",
-      "hqpbx-8ws91"
-    ]
+    "record_ids": ["a781b-nxa60", "bed0s-7xw90", "hqpbx-8ws91"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -452,11 +418,7 @@
       "en": "Advanced MULTIscaLe materials for key Enabling Technologies"
     },
     "occurrences": 3,
-    "record_ids": [
-      "66b2m-xgk50",
-      "bacck-32r88",
-      "vnv53-kqq94"
-    ]
+    "record_ids": ["66b2m-xgk50", "bacck-32r88", "vnv53-kqq94"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -466,11 +428,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 3,
-    "record_ids": [
-      "6vgqs-qj573",
-      "8vy4e-y1096",
-      "dd436-6cm66"
-    ]
+    "record_ids": ["6vgqs-qj573", "8vy4e-y1096", "dd436-6cm66"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -480,11 +438,7 @@
       "en": "Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 3,
-    "record_ids": [
-      "e94rx-q2q41",
-      "ffkkq-xzg63",
-      "hcmd1-jp979"
-    ]
+    "record_ids": ["e94rx-q2q41", "ffkkq-xzg63", "hcmd1-jp979"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -494,11 +448,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies AMULET"
     },
     "occurrences": 3,
-    "record_ids": [
-      "bn6fw-ypj06",
-      "fr720-vq953",
-      "yqs1c-ekp89"
-    ]
+    "record_ids": ["bn6fw-ypj06", "fr720-vq953", "yqs1c-ekp89"]
   },
   {
     "projectID": "GA24-10924S",
@@ -509,11 +459,7 @@
       "cs": "Digitální multiplexní zobrazovací hmotnostní spektrometrie"
     },
     "occurrences": 3,
-    "record_ids": [
-      "07r8s-r5w86",
-      "1kwkf-yr258",
-      "n40vh-kyy17"
-    ]
+    "record_ids": ["07r8s-r5w86", "1kwkf-yr258", "n40vh-kyy17"]
   },
   {
     "projectID": "GC21-11931J",
@@ -524,11 +470,7 @@
       "cs": "Hmotnostní spektrometrie s vysokým rozlišením pro analýzu dat z minulých a budoucích vesmírných misí"
     },
     "occurrences": 3,
-    "record_ids": [
-      "a781b-nxa60",
-      "bed0s-7xw90",
-      "hqpbx-8ws91"
-    ]
+    "record_ids": ["a781b-nxa60", "bed0s-7xw90", "hqpbx-8ws91"]
   },
   {
     "projectID": "ID:90254",
@@ -538,11 +480,7 @@
       "en": "e-INFRA CZ"
     },
     "occurrences": 3,
-    "record_ids": [
-      "63yky-6x902",
-      "a20md-19613",
-      "meyzb-dj507"
-    ]
+    "record_ids": ["63yky-6x902", "a20md-19613", "meyzb-dj507"]
   },
   {
     "projectID": "LL2501",
@@ -552,11 +490,7 @@
       "en": "Hydrated electron: the alchemist stone of water treatment CZ"
     },
     "occurrences": 3,
-    "record_ids": [
-      "63yky-6x902",
-      "a20md-19613",
-      "meyzb-dj507"
-    ]
+    "record_ids": ["63yky-6x902", "a20md-19613", "meyzb-dj507"]
   },
   {
     "projectID": "LUAUS23155",
@@ -566,11 +500,7 @@
       "en": "Design and synthesis of functionalized magnetic nanoparticles for effective removal of novel per- and polyfluorinated compounds (PFAS) from water"
     },
     "occurrences": 3,
-    "record_ids": [
-      "63yky-6x902",
-      "a20md-19613",
-      "meyzb-dj507"
-    ]
+    "record_ids": ["63yky-6x902", "a20md-19613", "meyzb-dj507"]
   },
   {
     "projectID": "UNCE/24/SCI/006",
@@ -581,11 +511,7 @@
       "cs": "Centrum pro výzkum dynamiky biodiverzity III"
     },
     "occurrences": 3,
-    "record_ids": [
-      "m7ky4-4de51",
-      "t21cz-2nq07",
-      "thktf-5rr35"
-    ]
+    "record_ids": ["m7ky4-4de51", "t21cz-2nq07", "thktf-5rr35"]
   },
   {
     "projectID": "6224",
@@ -595,10 +521,7 @@
       "en": "Non-adiabatic molecular dynamics of photochemically relevant molecules assisted by machine learning"
     },
     "occurrences": 2,
-    "record_ids": [
-      "9sg2b-myd78",
-      "sdmsm-0ab72"
-    ]
+    "record_ids": ["9sg2b-myd78", "sdmsm-0ab72"]
   },
   {
     "projectID": "721/2023",
@@ -608,10 +531,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "0y0y6-v0783",
-      "br8aq-db495"
-    ]
+    "record_ids": ["0y0y6-v0783", "br8aq-db495"]
   },
   {
     "projectID": "APVV-23-367",
@@ -621,10 +541,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "0by09-nq273",
-      "s6k7h-fgk25"
-    ]
+    "record_ids": ["0by09-nq273", "s6k7h-fgk25"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004558",
@@ -634,10 +551,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "d0q92-sw469",
-      "whtf0-m2934"
-    ]
+    "record_ids": ["d0q92-sw469", "whtf0-m2934"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004631",
@@ -647,10 +561,7 @@
       "en": "Materials and technologies for sustainable development"
     },
     "occurrences": 2,
-    "record_ids": [
-      "2ypmy-a1s93",
-      "y78mf-f0y22"
-    ]
+    "record_ids": ["2ypmy-a1s93", "y78mf-f0y22"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -660,10 +571,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies (AMULET)"
     },
     "occurrences": 2,
-    "record_ids": [
-      "02rm3-fxw77",
-      "55jeh-9mq05"
-    ]
+    "record_ids": ["02rm3-fxw77", "55jeh-9mq05"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -673,10 +581,7 @@
       "en": "AMULET - Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 2,
-    "record_ids": [
-      "evhkr-sa820",
-      "hywpj-rhf46"
-    ]
+    "record_ids": ["evhkr-sa820", "hywpj-rhf46"]
   },
   {
     "projectID": "EH22_008/0004596",
@@ -686,10 +591,7 @@
       "en": "Sensors and Detectors for Information Society (SENDISO)"
     },
     "occurrences": 2,
-    "record_ids": [
-      "kvwfa-n7q70",
-      "tfav7-pmh96"
-    ]
+    "record_ids": ["kvwfa-n7q70", "tfav7-pmh96"]
   },
   {
     "projectID": "EH22_008/0004605",
@@ -699,10 +601,7 @@
       "en": "Natural and anthropogenic georisks"
     },
     "occurrences": 2,
-    "record_ids": [
-      "6et7y-tad05",
-      "nwh2j-tbh43"
-    ]
+    "record_ids": ["6et7y-tad05", "nwh2j-tbh43"]
   },
   {
     "projectID": "EH23_021/0008433",
@@ -712,10 +611,7 @@
       "en": "Development of special wire semiproducts for welding and 3D printing"
     },
     "occurrences": 2,
-    "record_ids": [
-      "cbt1c-s4w38",
-      "hm9y9-wsr13"
-    ]
+    "record_ids": ["cbt1c-s4w38", "hm9y9-wsr13"]
   },
   {
     "projectID": "EH23_025/0008717",
@@ -726,10 +622,7 @@
       "cs": "Společnost v pohybu: příležitosti a rizika nových forem mobility pro českou společnost a ekonomiku"
     },
     "occurrences": 2,
-    "record_ids": [
-      "3z1na-56663",
-      "rw77y-hym71"
-    ]
+    "record_ids": ["3z1na-56663", "rw77y-hym71"]
   },
   {
     "projectID": "ELIXIR CZ Research Infrastructure",
@@ -739,10 +632,7 @@
       "en": "LM2018131"
     },
     "occurrences": 2,
-    "record_ids": [
-      "egsm2-7a369",
-      "kgb8j-r5f84"
-    ]
+    "record_ids": ["egsm2-7a369", "kgb8j-r5f84"]
   },
   {
     "projectID": "GA22-04408S",
@@ -752,10 +642,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "hc3hz-wz038",
-      "xem98-gkm45"
-    ]
+    "record_ids": ["hc3hz-wz038", "xem98-gkm45"]
   },
   {
     "projectID": "GA23-06675S",
@@ -765,10 +652,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "wesax-2ga58",
-      "wmbbb-xhc25"
-    ]
+    "record_ids": ["wesax-2ga58", "wmbbb-xhc25"]
   },
   {
     "projectID": "GAJU 042/2022/S",
@@ -779,10 +663,7 @@
       "cs": "Didaktická transformace obsahu - implikace a strategie v učení o přírodě"
     },
     "occurrences": 2,
-    "record_ids": [
-      "1v7c8-h4398",
-      "v334d-en257"
-    ]
+    "record_ids": ["1v7c8-h4398", "v334d-en257"]
   },
   {
     "projectID": "GF23-06174K",
@@ -792,10 +673,7 @@
       "en": "Role of Localized Defects in 2D Materials: From Nanoscale Structure to Macroscale Properties"
     },
     "occurrences": 2,
-    "record_ids": [
-      "ffkkq-xzg63",
-      "vnv53-kqq94"
-    ]
+    "record_ids": ["ffkkq-xzg63", "vnv53-kqq94"]
   },
   {
     "projectID": "GX19-26854X",
@@ -805,10 +683,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "b1m17-7tt44",
-      "sg1fq-8rc76"
-    ]
+    "record_ids": ["b1m17-7tt44", "sg1fq-8rc76"]
   },
   {
     "projectID": "GX20-00885X",
@@ -818,10 +693,7 @@
       "en": "Novel Functionalized (Bio)polymers Based on DNA Display of Small Molecules"
     },
     "occurrences": 2,
-    "record_ids": [
-      "0jx0g-xtx27",
-      "pwyd7-t9672"
-    ]
+    "record_ids": ["0jx0g-xtx27", "pwyd7-t9672"]
   },
   {
     "projectID": "GX20-06873X",
@@ -831,10 +703,7 @@
       "en": "SubTHz on-chip devices for controlling protein nanomachines"
     },
     "occurrences": 2,
-    "record_ids": [
-      "3q9we-bks74",
-      "rbrc9-za926"
-    ]
+    "record_ids": ["3q9we-bks74", "rbrc9-za926"]
   },
   {
     "projectID": "LL2101",
@@ -844,10 +713,7 @@
       "en": "Next Generation of 2D Monoelemental Materials"
     },
     "occurrences": 2,
-    "record_ids": [
-      "66b2m-xgk50",
-      "e94rx-q2q41"
-    ]
+    "record_ids": ["66b2m-xgk50", "e94rx-q2q41"]
   },
   {
     "projectID": "LM2018131",
@@ -858,10 +724,7 @@
       "cs": "Česká národní infrastruktura pro biologická data"
     },
     "occurrences": 2,
-    "record_ids": [
-      "d35zf-1ja47",
-      "rec6m-2sq83"
-    ]
+    "record_ids": ["d35zf-1ja47", "rec6m-2sq83"]
   },
   {
     "projectID": "LM2023051",
@@ -871,10 +734,7 @@
       "en": "Research infrastructure CzechNanoLab"
     },
     "occurrences": 2,
-    "record_ids": [
-      "k67jb-d3d47",
-      "nwpfz-nzw77"
-    ]
+    "record_ids": ["k67jb-d3d47", "nwpfz-nzw77"]
   },
   {
     "projectID": "LM2023066",
@@ -885,10 +745,7 @@
       "cs": "Nanomateriály a nanotechnologie pro ochranu životního prostředí a udržitelnou budoucnost"
     },
     "occurrences": 2,
-    "record_ids": [
-      "7nrq7-mqe46",
-      "vnv53-kqq94"
-    ]
+    "record_ids": ["7nrq7-mqe46", "vnv53-kqq94"]
   },
   {
     "projectID": "LQ200402201",
@@ -898,10 +755,7 @@
       "en": "Tunable Electrochemistry of Two-Dimensional Semiconductors"
     },
     "occurrences": 2,
-    "record_ids": [
-      "66b2m-xgk50",
-      "vnv53-kqq94"
-    ]
+    "record_ids": ["66b2m-xgk50", "vnv53-kqq94"]
   },
   {
     "projectID": "LQ200402201",
@@ -911,10 +765,7 @@
       "en": "Tunable Electrochemistry of Two-Dimensional Semiconductors"
     },
     "occurrences": 2,
-    "record_ids": [
-      "7nrq7-mqe46",
-      "ffkkq-xzg63"
-    ]
+    "record_ids": ["7nrq7-mqe46", "ffkkq-xzg63"]
   },
   {
     "projectID": "LX22NPO5102",
@@ -925,10 +776,7 @@
       "cs": "Národní ústav pro výzkum rakoviny"
     },
     "occurrences": 2,
-    "record_ids": [
-      "q36zs-jam71",
-      "vqbzk-pet80"
-    ]
+    "record_ids": ["q36zs-jam71", "vqbzk-pet80"]
   },
   {
     "projectID": "NW24-09-00302",
@@ -939,10 +787,7 @@
       "cs": "Zdravotní gramotnost vybrané dětské populace v oblasti prevence infekčních onemocnění – možnosti působení sester v primární péči"
     },
     "occurrences": 2,
-    "record_ids": [
-      "bvjne-3a708",
-      "t22na-z3b51"
-    ]
+    "record_ids": ["bvjne-3a708", "t22na-z3b51"]
   },
   {
     "projectID": "RVO:67985815",
@@ -952,10 +797,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "7kp9m-bk451",
-      "tf1sv-f9v20"
-    ]
+    "record_ids": ["7kp9m-bk451", "tf1sv-f9v20"]
   },
   {
     "projectID": "SGS-2024-4440",
@@ -965,10 +807,7 @@
       "en": "Cyclodextrin polymers as sorbents for the removal of perfluorinated compounds from water"
     },
     "occurrences": 2,
-    "record_ids": [
-      "63yky-6x902",
-      "meyzb-dj507"
-    ]
+    "record_ids": ["63yky-6x902", "meyzb-dj507"]
   },
   {
     "projectID": "TN02000020",
@@ -978,10 +817,7 @@
       "en": ""
     },
     "occurrences": 2,
-    "record_ids": [
-      "74f00-v0b78",
-      "a2nf4-keh97"
-    ]
+    "record_ids": ["74f00-v0b78", "a2nf4-keh97"]
   },
   {
     "projectID": "e-Infrastruktura CZ",
@@ -991,10 +827,7 @@
       "en": "LM2018140"
     },
     "occurrences": 2,
-    "record_ids": [
-      "egsm2-7a369",
-      "kgb8j-r5f84"
-    ]
+    "record_ids": ["egsm2-7a369", "kgb8j-r5f84"]
   },
   {
     "projectID": "042/2022/S",
@@ -1005,9 +838,7 @@
       "cs": "Didaktická transformace obsahu - implikace a strategie v učení o přírodě"
     },
     "occurrences": 1,
-    "record_ids": [
-      "tam25-wsf32"
-    ]
+    "record_ids": ["tam25-wsf32"]
   },
   {
     "projectID": "1/0631/22",
@@ -1017,9 +848,7 @@
       "en": "VEGA"
     },
     "occurrences": 1,
-    "record_ids": [
-      "0by09-nq273"
-    ]
+    "record_ids": ["0by09-nq273"]
   },
   {
     "projectID": "1/0631/22",
@@ -1029,9 +858,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "s6k7h-fgk25"
-    ]
+    "record_ids": ["s6k7h-fgk25"]
   },
   {
     "projectID": "101056783",
@@ -1041,9 +868,7 @@
       "en": "Non-CO2 Forcers and their Climate, Weather, Air Quality and Health Impacts"
     },
     "occurrences": 1,
-    "record_ids": [
-      "b6as3-v2y27"
-    ]
+    "record_ids": ["b6as3-v2y27"]
   },
   {
     "projectID": "101194287",
@@ -1053,9 +878,7 @@
       "en": "Next Generation Open Innovations in Trustworthy Embedded AI Architectures for Smart Cities, Mobility and Logistics (NexTArc)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nx4g1-x9m42"
-    ]
+    "record_ids": ["nx4g1-x9m42"]
   },
   {
     "projectID": "123456789",
@@ -1065,9 +888,7 @@
       "en": "Test project"
     },
     "occurrences": 1,
-    "record_ids": [
-      "1mtdd-21974"
-    ]
+    "record_ids": ["1mtdd-21974"]
   },
   {
     "projectID": "2021/43/I/ST4/02250",
@@ -1077,9 +898,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "b9rr9-4n790"
-    ]
+    "record_ids": ["b9rr9-4n790"]
   },
   {
     "projectID": "2022-06725",
@@ -1089,9 +908,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "8x58q-10t28"
-    ]
+    "record_ids": ["8x58q-10t28"]
   },
   {
     "projectID": "21-01308S",
@@ -1101,9 +918,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "d0q92-sw469"
-    ]
+    "record_ids": ["d0q92-sw469"]
   },
   {
     "projectID": "21-13458S",
@@ -1113,9 +928,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "whtf0-m2934"
-    ]
+    "record_ids": ["whtf0-m2934"]
   },
   {
     "projectID": "21-24965M",
@@ -1125,9 +938,7 @@
       "en": "Magnetoelastic Materials beyond Born-Oppenheimer Approximation"
     },
     "occurrences": 1,
-    "record_ids": [
-      "19zkw-he378"
-    ]
+    "record_ids": ["19zkw-he378"]
   },
   {
     "projectID": "218222",
@@ -1138,9 +949,7 @@
       "cs": "Zahrnutí jaderných stupňů volnosti do metody DMRG v kvantové chemii"
     },
     "occurrences": 1,
-    "record_ids": [
-      "b9rr9-4n790"
-    ]
+    "record_ids": ["b9rr9-4n790"]
   },
   {
     "projectID": "218222",
@@ -1150,9 +959,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "jd6ec-sd941"
-    ]
+    "record_ids": ["jd6ec-sd941"]
   },
   {
     "projectID": "23-04921M",
@@ -1162,9 +969,7 @@
       "en": "Unravelling climate impacts of atmospheric internal gravity waves"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8m3g7-5r614"
-    ]
+    "record_ids": ["8m3g7-5r614"]
   },
   {
     "projectID": "24-11166S",
@@ -1175,9 +980,7 @@
       "cs": "Studium vibronické interakce v elektronických rezonancích pomocí 2D EELS"
     },
     "occurrences": 1,
-    "record_ids": [
-      "3cxeb-53464"
-    ]
+    "record_ids": ["3cxeb-53464"]
   },
   {
     "projectID": "25-15346S",
@@ -1187,9 +990,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "sg1fq-8rc76"
-    ]
+    "record_ids": ["sg1fq-8rc76"]
   },
   {
     "projectID": "25-15592S",
@@ -1199,9 +1000,7 @@
       "en": "DNA Display of Ligands or Reactive Groups for Multivalent Spacial Recognition, Recruitment and Arrangement of Proteins"
     },
     "occurrences": 1,
-    "record_ids": [
-      "c81tj-mck31"
-    ]
+    "record_ids": ["c81tj-mck31"]
   },
   {
     "projectID": "25-17683S",
@@ -1211,9 +1010,7 @@
       "en": "Unravelling Subgrid-Scale Orography Effects on Composition in the Free Atmosphere (SCOPE)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8m3g7-5r614"
-    ]
+    "record_ids": ["8m3g7-5r614"]
   },
   {
     "projectID": "272923",
@@ -1223,9 +1020,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "b1m17-7tt44"
-    ]
+    "record_ids": ["b1m17-7tt44"]
   },
   {
     "projectID": "298822",
@@ -1235,9 +1030,7 @@
       "en": "The impact of natural emissions on urban air pollution over central Europe"
     },
     "occurrences": 1,
-    "record_ids": [
-      "b6as3-v2y27"
-    ]
+    "record_ids": ["b6as3-v2y27"]
   },
   {
     "projectID": "419924354",
@@ -1247,9 +1040,7 @@
       "en": "DFG"
     },
     "occurrences": 1,
-    "record_ids": [
-      "02rm3-fxw77"
-    ]
+    "record_ids": ["02rm3-fxw77"]
   },
   {
     "projectID": "442325",
@@ -1259,9 +1050,7 @@
       "en": "A Lagrangian Modeling Approach to Quantify Gravity Wave Impacts on Atmospheric Transport"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8m3g7-5r614"
-    ]
+    "record_ids": ["8m3g7-5r614"]
   },
   {
     "projectID": "462164435",
@@ -1271,9 +1060,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "346yj-e5334"
-    ]
+    "record_ids": ["346yj-e5334"]
   },
   {
     "projectID": "65269705",
@@ -1283,9 +1070,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xxzmr-kk127"
-    ]
+    "record_ids": ["xxzmr-kk127"]
   },
   {
     "projectID": "726/2023",
@@ -1295,9 +1080,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "4y0sy-qh735"
-    ]
+    "record_ids": ["4y0sy-qh735"]
   },
   {
     "projectID": "779/2025",
@@ -1307,9 +1090,7 @@
       "en": "Automated Pipeline for Single-Cell RNA Sequencing in Galaxy and Invenio"
     },
     "occurrences": 1,
-    "record_ids": [
-      "yg1z4-gxa67"
-    ]
+    "record_ids": ["yg1z4-gxa67"]
   },
   {
     "projectID": "861381",
@@ -1319,9 +1100,7 @@
       "en": "NATURE-ETN: Nucleic Acids for Future Gene Editing, Immunotherapy and Epigenetic Sequence Modification"
     },
     "occurrences": 1,
-    "record_ids": [
-      "qgz5g-hca80"
-    ]
+    "record_ids": ["qgz5g-hca80"]
   },
   {
     "projectID": "871108",
@@ -1331,9 +1110,7 @@
       "en": "AQUAEXCEL3.0"
     },
     "occurrences": 1,
-    "record_ids": [
-      "brt01-qxj73"
-    ]
+    "record_ids": ["brt01-qxj73"]
   },
   {
     "projectID": "8J21FR016",
@@ -1343,9 +1120,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "whtf0-m2934"
-    ]
+    "record_ids": ["whtf0-m2934"]
   },
   {
     "projectID": "90254",
@@ -1355,9 +1130,7 @@
       "en": "e-INFRA CZ"
     },
     "occurrences": 1,
-    "record_ids": [
-      "9y8r7-8n121"
-    ]
+    "record_ids": ["9y8r7-8n121"]
   },
   {
     "projectID": "90254",
@@ -1367,9 +1140,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "df8g2-52k82"
-    ]
+    "record_ids": ["df8g2-52k82"]
   },
   {
     "projectID": "90254",
@@ -1379,9 +1150,7 @@
       "en": "e-INFRA CZ project"
     },
     "occurrences": 1,
-    "record_ids": [
-      "jq7fm-k2x81"
-    ]
+    "record_ids": ["jq7fm-k2x81"]
   },
   {
     "projectID": "90254",
@@ -1391,9 +1160,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "t55em-ndc28"
-    ]
+    "record_ids": ["t55em-ndc28"]
   },
   {
     "projectID": "90254",
@@ -1403,9 +1170,7 @@
       "en": "e-INFRA CZ"
     },
     "occurrences": 1,
-    "record_ids": [
-      "xkadt-0cb92"
-    ]
+    "record_ids": ["xkadt-0cb92"]
   },
   {
     "projectID": "992224",
@@ -1415,9 +1180,7 @@
       "en": "Application of Hollow-Fiber Microextraction in the Drug Analysis"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6vgqs-qj573"
-    ]
+    "record_ids": ["6vgqs-qj573"]
   },
   {
     "projectID": "992224",
@@ -1427,9 +1190,7 @@
       "en": "Application of Hollow-Fiber Microextraction in the Drug Analysis"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y46b5-08w45"
-    ]
+    "record_ids": ["y46b5-08w45"]
   },
   {
     "projectID": "997124",
@@ -1439,9 +1200,7 @@
       "en": "Electrochemical Sensors and Methods for Determination of Illicit Drugs and Nervous System Drugs"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y46b5-08w45"
-    ]
+    "record_ids": ["y46b5-08w45"]
   },
   {
     "projectID": "997125",
@@ -1451,9 +1210,7 @@
       "en": "Identification and Characterization of Electrodegradation Products of Xenobiotics in the Environment"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6vgqs-qj573"
-    ]
+    "record_ids": ["6vgqs-qj573"]
   },
   {
     "projectID": "9A2 5008",
@@ -1463,9 +1220,7 @@
       "en": "Next Generation Open Innovations in Trustworthy Embedded AI Architectures for Smart Cities, Mobility and Logistics (NexTArc)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nx4g1-x9m42"
-    ]
+    "record_ids": ["nx4g1-x9m42"]
   },
   {
     "projectID": "9F24001",
@@ -1475,9 +1230,7 @@
       "en": "Prioritization of pathways linking aging and Alzheimer's disease to cognitive decline and dementia"
     },
     "occurrences": 1,
-    "record_ids": [
-      "d6ra2-6xn66"
-    ]
+    "record_ids": ["d6ra2-6xn66"]
   },
   {
     "projectID": "ACRP11-KR18AC0K14686",
@@ -1487,9 +1240,7 @@
       "en": "ATtain-O3 - Evaluating the effects of climate warming and precursor emission changes on the attainment of the Austrian ozone standard"
     },
     "occurrences": 1,
-    "record_ids": [
-      "ev7ej-gv255"
-    ]
+    "record_ids": ["ev7ej-gv255"]
   },
   {
     "projectID": "AP2102",
@@ -1499,9 +1250,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "fkw19-mxb81"
-    ]
+    "record_ids": ["fkw19-mxb81"]
   },
   {
     "projectID": "AP2102",
@@ -1511,9 +1260,7 @@
       "en": "Praemium Academie"
     },
     "occurrences": 1,
-    "record_ids": [
-      "grwf8-3c725"
-    ]
+    "record_ids": ["grwf8-3c725"]
   },
   {
     "projectID": "APVV-20-0127",
@@ -1523,9 +1270,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "sn0jz-fk402"
-    ]
+    "record_ids": ["sn0jz-fk402"]
   },
   {
     "projectID": "CZ.02.01.01/00/22008/0004649",
@@ -1535,9 +1280,7 @@
       "en": "Quantum Engineering and Nanotechnology (QUEENTEC)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "3cxeb-53464"
-    ]
+    "record_ids": ["3cxeb-53464"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/ 0004558",
@@ -1547,9 +1290,7 @@
       "en": "AMULET"
     },
     "occurrences": 1,
-    "record_ids": [
-      "s6k7h-fgk25"
-    ]
+    "record_ids": ["s6k7h-fgk25"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004558",
@@ -1559,9 +1300,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "dv2m5-vc204"
-    ]
+    "record_ids": ["dv2m5-vc204"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004558",
@@ -1571,9 +1310,7 @@
       "en": "AMULET - Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "2qa1z-zm324"
-    ]
+    "record_ids": ["2qa1z-zm324"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004573",
@@ -1583,9 +1320,7 @@
       "en": "LasApp"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bxamm-j6d77"
-    ]
+    "record_ids": ["bxamm-j6d77"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004575",
@@ -1595,9 +1330,7 @@
       "en": "RNA for therapy"
     },
     "occurrences": 1,
-    "record_ids": [
-      "3ehnn-7en38"
-    ]
+    "record_ids": ["3ehnn-7en38"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_008/0004635",
@@ -1607,9 +1340,7 @@
       "en": "AdAgriF - Advanced methods of greenhouse gases emission reduction and sequestration in agriculture and forest landscape for climate change mitigation"
     },
     "occurrences": 1,
-    "record_ids": [
-      "4y0sy-qh735"
-    ]
+    "record_ids": ["4y0sy-qh735"]
   },
   {
     "projectID": "CZ.02.01.01/00/22_012/0006225",
@@ -1620,9 +1351,7 @@
       "cs": "Rozvoj infrastrukturního zázemí doktorských studijních programů na ČZU"
     },
     "occurrences": 1,
-    "record_ids": [
-      "mwd02-msm38"
-    ]
+    "record_ids": ["mwd02-msm38"]
   },
   {
     "projectID": "CZ.02.01.01/00/23_021/0008433",
@@ -1632,9 +1361,7 @@
       "en": "Development of special wire semiproducts for welding and 3D printing"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y6d9x-vdv56"
-    ]
+    "record_ids": ["y6d9x-vdv56"]
   },
   {
     "projectID": "CZ.02.1.01/0.0/0.0/16_026/ 0008382",
@@ -1644,9 +1371,7 @@
       "en": "Carbon allotropes with rationalized nanointerfaces and nanolinks for environ- mental and biomedical applications"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6gpje-k9s12"
-    ]
+    "record_ids": ["6gpje-k9s12"]
   },
   {
     "projectID": "CZ.02.2.69/0.0/0.0/19_073/0016935",
@@ -1656,9 +1381,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "a42vc-pav63"
-    ]
+    "record_ids": ["a42vc-pav63"]
   },
   {
     "projectID": "CZ.02.2.69/0.0/0.0/19_073/0016943",
@@ -1669,9 +1392,7 @@
       "cs": "Interní grantová agentura Masarykovy univerzity"
     },
     "occurrences": 1,
-    "record_ids": [
-      "d2a2g-vqz71"
-    ]
+    "record_ids": ["d2a2g-vqz71"]
   },
   {
     "projectID": "CZ.1.05/2.1.00/03.0097",
@@ -1682,9 +1403,7 @@
       "cs": "AdMaS – Pokročilé stavební materiály, konstrukce a technologie"
     },
     "occurrences": 1,
-    "record_ids": [
-      "wv73y-hst60"
-    ]
+    "record_ids": ["wv73y-hst60"]
   },
   {
     "projectID": "Cooperatio 120 015",
@@ -1694,9 +1413,7 @@
       "en": "Sport Sciences – Social"
     },
     "occurrences": 1,
-    "record_ids": [
-      "dd436-6cm66"
-    ]
+    "record_ids": ["dd436-6cm66"]
   },
   {
     "projectID": "ED1.1.00/02.0070",
@@ -1706,9 +1423,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "x865h-50c87"
-    ]
+    "record_ids": ["x865h-50c87"]
   },
   {
     "projectID": "EF16_026/0008382",
@@ -1718,9 +1433,7 @@
       "en": "Carbon allotropes with rationalized nanointerfaces and nanolinks for environmental and biomedical applications"
     },
     "occurrences": 1,
-    "record_ids": [
-      "avcx3-w3h61"
-    ]
+    "record_ids": ["avcx3-w3h61"]
   },
   {
     "projectID": "EF16_026/0008382",
@@ -1730,9 +1443,7 @@
       "en": "Carbon allotropes with rationalized nanointerfaces and nanolinks for environ- mental and biomedical applications"
     },
     "occurrences": 1,
-    "record_ids": [
-      "k67jb-d3d47"
-    ]
+    "record_ids": ["k67jb-d3d47"]
   },
   {
     "projectID": "EF16_026/0008382",
@@ -1742,9 +1453,7 @@
       "en": "Carbon allotropes with rationalized nanointerfaces and nanolinks for environmental and biomedical applications"
     },
     "occurrences": 1,
-    "record_ids": [
-      "tgf5z-9fv07"
-    ]
+    "record_ids": ["tgf5z-9fv07"]
   },
   {
     "projectID": "EF16_026/0008382",
@@ -1754,9 +1463,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xem98-gkm45"
-    ]
+    "record_ids": ["xem98-gkm45"]
   },
   {
     "projectID": "EF18_053/0016922",
@@ -1767,9 +1474,7 @@
       "cs": "Optimalizace analytických postupů pro diagnostiku environmentálních a biomedicínských procesů"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8x1eh-h0c29"
-    ]
+    "record_ids": ["8x1eh-h0c29"]
   },
   {
     "projectID": "EH22_008-0004558",
@@ -1779,9 +1484,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "sn0jz-fk402"
-    ]
+    "record_ids": ["sn0jz-fk402"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1791,9 +1494,7 @@
       "en": "Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "a42vc-pav63"
-    ]
+    "record_ids": ["a42vc-pav63"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1803,9 +1504,7 @@
       "en": "Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "0by09-nq273"
-    ]
+    "record_ids": ["0by09-nq273"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1815,9 +1514,7 @@
       "en": "AMULET"
     },
     "occurrences": 1,
-    "record_ids": [
-      "0p4s2-38b98"
-    ]
+    "record_ids": ["0p4s2-38b98"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1828,9 +1525,7 @@
       "cs": "Pokročilé víceškálové materiály pro nosné klíčové technologie"
     },
     "occurrences": 1,
-    "record_ids": [
-      "7nrq7-mqe46"
-    ]
+    "record_ids": ["7nrq7-mqe46"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1840,9 +1535,7 @@
       "en": "Advanced MUltiscaLe materials for key Enabling Technologies, AMULET"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8x58q-10t28"
-    ]
+    "record_ids": ["8x58q-10t28"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1852,9 +1545,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "b9rr9-4n790"
-    ]
+    "record_ids": ["b9rr9-4n790"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1865,9 +1556,7 @@
       "cs": "Pokročilé víceškálové materiály pro nosné klíčové technologie (AMULET)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "hen5w-yd145"
-    ]
+    "record_ids": ["hen5w-yd145"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1877,9 +1566,7 @@
       "en": "Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nwpfz-nzw77"
-    ]
+    "record_ids": ["nwpfz-nzw77"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1889,9 +1576,7 @@
       "en": "AMULET - Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "p35yt-8vs77"
-    ]
+    "record_ids": ["p35yt-8vs77"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1901,9 +1586,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "hc3hz-wz038"
-    ]
+    "record_ids": ["hc3hz-wz038"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1913,9 +1596,7 @@
       "en": "Advanced Multiscale Materials for Key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y46b5-08w45"
-    ]
+    "record_ids": ["y46b5-08w45"]
   },
   {
     "projectID": "EH22_008/0004558",
@@ -1925,9 +1606,7 @@
       "en": "Advanced MUltiscaLe materials for key Enabling Technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y4pjh-f3w71"
-    ]
+    "record_ids": ["y4pjh-f3w71"]
   },
   {
     "projectID": "EH22_008/0004575",
@@ -1937,9 +1616,7 @@
       "en": "RNA for therapy"
     },
     "occurrences": 1,
-    "record_ids": [
-      "pwyd7-t9672"
-    ]
+    "record_ids": ["pwyd7-t9672"]
   },
   {
     "projectID": "EH22_008/0004649",
@@ -1949,9 +1626,7 @@
       "en": "Quantum Engineering and Nanotechnology QUEENTEC"
     },
     "occurrences": 1,
-    "record_ids": [
-      "75sy4-cbt74"
-    ]
+    "record_ids": ["75sy4-cbt74"]
   },
   {
     "projectID": "EH22_008/0004649",
@@ -1962,9 +1637,7 @@
       "cs": "Kvantové inženýrství a nanotechnologie"
     },
     "occurrences": 1,
-    "record_ids": [
-      "e7zmy-cf354"
-    ]
+    "record_ids": ["e7zmy-cf354"]
   },
   {
     "projectID": "EH22_008/0004649",
@@ -1974,9 +1647,7 @@
       "en": "Quantum Engineering and Nanotechnology (QUEENTEC)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "sb52h-gtd81"
-    ]
+    "record_ids": ["sb52h-gtd81"]
   },
   {
     "projectID": "EH22_012/0005962",
@@ -1986,9 +1657,7 @@
       "en": "Facilities for Doctoral Study Programmes at the University of Pardubice (DSP INFRA)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "0by09-nq273"
-    ]
+    "record_ids": ["0by09-nq273"]
   },
   {
     "projectID": "EH23_021/0008433",
@@ -1998,9 +1667,7 @@
       "en": "Development of special wire semiproducts for welding and 3D printing"
     },
     "occurrences": 1,
-    "record_ids": [
-      "dmq82-ed856"
-    ]
+    "record_ids": ["dmq82-ed856"]
   },
   {
     "projectID": "ENHANCER-101067998",
@@ -2010,9 +1677,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "k67jb-d3d47"
-    ]
+    "record_ids": ["k67jb-d3d47"]
   },
   {
     "projectID": "EP/S023321/1",
@@ -2022,9 +1687,7 @@
       "en": "EPSRC and SFI Centre for Doctoral Training in Photonic Integration and Advanced Data Storage"
     },
     "occurrences": 1,
-    "record_ids": [
-      "7nrq7-mqe46"
-    ]
+    "record_ids": ["7nrq7-mqe46"]
   },
   {
     "projectID": "EÚ MH CZ-DRO 00023761",
@@ -2035,9 +1698,7 @@
       "cs": "Institucionální podpora"
     },
     "occurrences": 1,
-    "record_ids": [
-      "dd436-6cm66"
-    ]
+    "record_ids": ["dd436-6cm66"]
   },
   {
     "projectID": "FETA",
@@ -2048,9 +1709,7 @@
       "cs": "Analýza šifrovaného provozu pomocí sítových toků"
     },
     "occurrences": 1,
-    "record_ids": [
-      "44v8q-s2m90"
-    ]
+    "record_ids": ["44v8q-s2m90"]
   },
   {
     "projectID": "FNBr 65269705",
@@ -2060,9 +1719,7 @@
       "en": "Conceptual development of research organization (FNBr 65269705)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "d2a2g-vqz71"
-    ]
+    "record_ids": ["d2a2g-vqz71"]
   },
   {
     "projectID": "FSI-S-23-8389",
@@ -2073,9 +1730,7 @@
       "cs": "Vývoj a aplikace pokročilých optických metod IV"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6374g-wmk43"
-    ]
+    "record_ids": ["6374g-wmk43"]
   },
   {
     "projectID": "GA18-24563S",
@@ -2085,9 +1740,7 @@
       "en": "Relativistic DMRG-based externally corrected coupled cluster methods"
     },
     "occurrences": 1,
-    "record_ids": [
-      "a42vc-pav63"
-    ]
+    "record_ids": ["a42vc-pav63"]
   },
   {
     "projectID": "GA19-03207S",
@@ -2097,9 +1750,7 @@
       "en": "Bimetallic and trimetallic fluorescent nanoclusters: synthesis, physico-chemical properties, and application in bio-imaging"
     },
     "occurrences": 1,
-    "record_ids": [
-      "mff4d-q4a24"
-    ]
+    "record_ids": ["mff4d-q4a24"]
   },
   {
     "projectID": "GA19-07043S",
@@ -2109,9 +1760,7 @@
       "en": "Topological regulation of CD4 and CD8 in T cells"
     },
     "occurrences": 1,
-    "record_ids": [
-      "ec1wt-xyh21"
-    ]
+    "record_ids": ["ec1wt-xyh21"]
   },
   {
     "projectID": "GA20-24252S",
@@ -2121,9 +1770,7 @@
       "en": "Employing ultra-long read sequencing to elucidate origin and evolution of satellite DNA in plant genomes"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8t29q-nfr77"
-    ]
+    "record_ids": ["8t29q-nfr77"]
   },
   {
     "projectID": "GA21-07062S",
@@ -2133,9 +1780,7 @@
       "en": "Clusters of PAHs in Laboratory Research of Astrochemical and Atmospherical Processes"
     },
     "occurrences": 1,
-    "record_ids": [
-      "jq7fm-k2x81"
-    ]
+    "record_ids": ["jq7fm-k2x81"]
   },
   {
     "projectID": "GA21-09830S",
@@ -2145,9 +1790,7 @@
       "en": "Elastic nano silicon for advanced Li-ion batteries"
     },
     "occurrences": 1,
-    "record_ids": [
-      "hwbrn-ed377"
-    ]
+    "record_ids": ["hwbrn-ed377"]
   },
   {
     "projectID": "GA21-09830S",
@@ -2157,9 +1800,7 @@
       "en": "Elastic nanosilicon for advanced Li-ion batteries"
     },
     "occurrences": 1,
-    "record_ids": [
-      "k67jb-d3d47"
-    ]
+    "record_ids": ["k67jb-d3d47"]
   },
   {
     "projectID": "GA21-13458S",
@@ -2170,9 +1811,7 @@
       "cs": "Přepínání vodivosti v jednotlivých elektroaktivních molekulách."
     },
     "occurrences": 1,
-    "record_ids": [
-      "jtw08-mz650"
-    ]
+    "record_ids": ["jtw08-mz650"]
   },
   {
     "projectID": "GA21-15936S",
@@ -2182,9 +1821,7 @@
       "en": "Effects of Macromolecular Crowding on Enzyme Structure and Kinetics"
     },
     "occurrences": 1,
-    "record_ids": [
-      "df023-eya04"
-    ]
+    "record_ids": ["df023-eya04"]
   },
   {
     "projectID": "GA21–09830S",
@@ -2194,9 +1831,7 @@
       "en": "Elastic nanosilicon for advanced Li-ion batteries"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6gpje-k9s12"
-    ]
+    "record_ids": ["6gpje-k9s12"]
   },
   {
     "projectID": "GA22-04408S",
@@ -2206,9 +1841,7 @@
       "en": "Fundamental Physics of Interfaces between 2D Materials and Metals"
     },
     "occurrences": 1,
-    "record_ids": [
-      "66b2m-xgk50"
-    ]
+    "record_ids": ["66b2m-xgk50"]
   },
   {
     "projectID": "GA22-04408S",
@@ -2219,9 +1852,7 @@
       "cs": "Fundamentální fyzika rozhraní mezi 2D materiály a kovy"
     },
     "occurrences": 1,
-    "record_ids": [
-      "hcmd1-jp979"
-    ]
+    "record_ids": ["hcmd1-jp979"]
   },
   {
     "projectID": "GA22-04408S",
@@ -2232,9 +1863,7 @@
       "cs": "Fundamentální fyzika rozhraní mezi 2D materiály a kovy"
     },
     "occurrences": 1,
-    "record_ids": [
-      "avcx3-w3h61"
-    ]
+    "record_ids": ["avcx3-w3h61"]
   },
   {
     "projectID": "GA23-05486S",
@@ -2244,9 +1873,7 @@
       "en": "On-surface synthesis and characterization of polyradical molecules"
     },
     "occurrences": 1,
-    "record_ids": [
-      "jd6ec-sd941"
-    ]
+    "record_ids": ["jd6ec-sd941"]
   },
   {
     "projectID": "GA23-05818S",
@@ -2256,9 +1883,7 @@
       "en": "Activated Borane as Lewis Acid Based Catalyst"
     },
     "occurrences": 1,
-    "record_ids": [
-      "p35yt-8vs77"
-    ]
+    "record_ids": ["p35yt-8vs77"]
   },
   {
     "projectID": "GA23-05845S",
@@ -2268,9 +1893,7 @@
       "en": "Real-time determination of infection threats from raw nanopore signals using machine learning techniques"
     },
     "occurrences": 1,
-    "record_ids": [
-      "dj8ys-a4r49"
-    ]
+    "record_ids": ["dj8ys-a4r49"]
   },
   {
     "projectID": "GA23-05895S",
@@ -2280,9 +1903,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "tfav7-pmh96"
-    ]
+    "record_ids": ["tfav7-pmh96"]
   },
   {
     "projectID": "GA23-05895S",
@@ -2293,9 +1914,7 @@
       "cs": "Vývoj pokročilých rozhraní elektroda-elektrolyt pro vysokonapěťové vodné baterie nové generace"
     },
     "occurrences": 1,
-    "record_ids": [
-      "tgf5z-9fv07"
-    ]
+    "record_ids": ["tgf5z-9fv07"]
   },
   {
     "projectID": "GA23-07292S",
@@ -2305,9 +1924,7 @@
       "en": "Additive or subtractive manufacturing: Which is more powerful to achieve stable electroreduction of carbon dioxide at high reaction rates?"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y4pjh-f3w71"
-    ]
+    "record_ids": ["y4pjh-f3w71"]
   },
   {
     "projectID": "GA24-10924S",
@@ -2318,9 +1935,7 @@
       "cs": "igitální multiplexní zobrazovací hmotnostní spektrometrie"
     },
     "occurrences": 1,
-    "record_ids": [
-      "hcr8t-k8t55"
-    ]
+    "record_ids": ["hcr8t-k8t55"]
   },
   {
     "projectID": "GA24-11166S",
@@ -2331,9 +1946,7 @@
       "cs": "Studium vibronické interakce v elektronických rezonancích pomocí 2D EELS"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nh7d1-w4840"
-    ]
+    "record_ids": ["nh7d1-w4840"]
   },
   {
     "projectID": "GA24-11166S",
@@ -2344,9 +1957,7 @@
       "cs": "Studium vibronické interakce v elektronických rezonancích pomocí 2D EELS"
     },
     "occurrences": 1,
-    "record_ids": [
-      "sb52h-gtd81"
-    ]
+    "record_ids": ["sb52h-gtd81"]
   },
   {
     "projectID": "GA24-11183S",
@@ -2357,9 +1968,7 @@
       "cs": "Optická mikroskopie pro přímé počítání molekul a nanočástic: absolutní kvantifikace bez kalibračních standardů"
     },
     "occurrences": 1,
-    "record_ids": [
-      "hcr8t-k8t55"
-    ]
+    "record_ids": ["hcr8t-k8t55"]
   },
   {
     "projectID": "GA24-11390S",
@@ -2369,9 +1978,7 @@
       "en": "Atmospheric Aerosol Nanoclusters in Molecular Beam Experiments and Computer Simulations"
     },
     "occurrences": 1,
-    "record_ids": [
-      "e7zmy-cf354"
-    ]
+    "record_ids": ["e7zmy-cf354"]
   },
   {
     "projectID": "GA24-11903S",
@@ -2381,9 +1988,7 @@
       "en": "Drug repurposing for anti-invasive anti-metastatic treatment - the pipeline development and elucidation of mechanisms"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6374g-wmk43"
-    ]
+    "record_ids": ["6374g-wmk43"]
   },
   {
     "projectID": "GA24-12028S",
@@ -2394,9 +1999,7 @@
       "cs": "Atlas Alzheimerovy choroby: Mapování vývoje demence u cerebrálních organoidů pomocí single-cell transkriptomiky"
     },
     "occurrences": 1,
-    "record_ids": [
-      "ack91-8kq34"
-    ]
+    "record_ids": ["ack91-8kq34"]
   },
   {
     "projectID": "GA25-15700S",
@@ -2406,9 +2009,7 @@
       "en": "MiPEF – Microwave sensors for unraveling biomolecular effects of pulsed electric field"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y4pjh-f3w71"
-    ]
+    "record_ids": ["y4pjh-f3w71"]
   },
   {
     "projectID": "GA25-16117S",
@@ -2418,9 +2019,7 @@
       "en": "Controlled Transport of Cell-penetrating Peptides across Biological Membranes – Synergy of Simulations and Single Molecule Fluorescence Experiments"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nfdcq-phc28"
-    ]
+    "record_ids": ["nfdcq-phc28"]
   },
   {
     "projectID": "GA25-16345S",
@@ -2431,9 +2030,7 @@
       "cs": "Řízení interakcí mezi 2D dichalkogenidy přechodných kovů a pevnými povrchy"
     },
     "occurrences": 1,
-    "record_ids": [
-      "7nrq7-mqe46"
-    ]
+    "record_ids": ["7nrq7-mqe46"]
   },
   {
     "projectID": "GAUK 81324",
@@ -2443,9 +2040,7 @@
       "en": "Measuring changes in adaptation and recovery to sports performance in women on hormonal contraception and with a spontaneous ovarian cycle"
     },
     "occurrences": 1,
-    "record_ids": [
-      "dd436-6cm66"
-    ]
+    "record_ids": ["dd436-6cm66"]
   },
   {
     "projectID": "GF23-06174K",
@@ -2455,9 +2050,7 @@
       "en": "Role of Localized Defects in 2D Materials: From Nanoscale Structure to Macroscale Properties"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bacck-32r88"
-    ]
+    "record_ids": ["bacck-32r88"]
   },
   {
     "projectID": "GF23-06174K",
@@ -2467,9 +2060,7 @@
       "en": "Role of Localized Defects in 2D Materials: From Nanoscale Structure to Macroscale Properties"
     },
     "occurrences": 1,
-    "record_ids": [
-      "e94rx-q2q41"
-    ]
+    "record_ids": ["e94rx-q2q41"]
   },
   {
     "projectID": "GF23-06174K",
@@ -2479,9 +2070,7 @@
       "en": "Role of Localized Defects in 2D Materials: From Nanoscale Structure to Macroscale Properties"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nwpfz-nzw77"
-    ]
+    "record_ids": ["nwpfz-nzw77"]
   },
   {
     "projectID": "GF23-07633K",
@@ -2491,9 +2080,7 @@
       "en": "Unveiling the principles of solar magneto-convection"
     },
     "occurrences": 1,
-    "record_ids": [
-      "v5fq7-mvc15"
-    ]
+    "record_ids": ["v5fq7-mvc15"]
   },
   {
     "projectID": "GF25-14622L",
@@ -2503,9 +2090,7 @@
       "en": "New insights on the current dynamics of forest growth in changing climatic and environmental conditions using modern technologies"
     },
     "occurrences": 1,
-    "record_ids": [
-      "xkadt-0cb92"
-    ]
+    "record_ids": ["xkadt-0cb92"]
   },
   {
     "projectID": "GJ17-01982Y",
@@ -2515,9 +2100,7 @@
       "en": "Solvent effects in non-aqueous biocatalysis"
     },
     "occurrences": 1,
-    "record_ids": [
-      "df023-eya04"
-    ]
+    "record_ids": ["df023-eya04"]
   },
   {
     "projectID": "GM22-11299M",
@@ -2527,9 +2110,7 @@
       "en": "Reaction networks at phase interfaces for dynamic self-assembly"
     },
     "occurrences": 1,
-    "record_ids": [
-      "741sm-x1528"
-    ]
+    "record_ids": ["741sm-x1528"]
   },
   {
     "projectID": "GN23-063861",
@@ -2539,9 +2120,7 @@
       "en": "BIODYNAMICS: Spatio-temporal dynamics of biotic interactions"
     },
     "occurrences": 1,
-    "record_ids": [
-      "m7ky4-4de51"
-    ]
+    "record_ids": ["m7ky4-4de51"]
   },
   {
     "projectID": "GN23-06386I",
@@ -2551,9 +2130,7 @@
       "en": "BIODYNAMICS: Spatio-temporal dynamics of biotic interactions"
     },
     "occurrences": 1,
-    "record_ids": [
-      "t21cz-2nq07"
-    ]
+    "record_ids": ["t21cz-2nq07"]
   },
   {
     "projectID": "GN23-06386I",
@@ -2563,9 +2140,7 @@
       "en": "BIODYNAMICS: Spatio-temporal dynamics of biotic interactions"
     },
     "occurrences": 1,
-    "record_ids": [
-      "thktf-5rr35"
-    ]
+    "record_ids": ["thktf-5rr35"]
   },
   {
     "projectID": "GX19-26854X",
@@ -2575,9 +2150,7 @@
       "en": "Concert of lipids, ions, and proteins in cell membrane dynamics and function"
     },
     "occurrences": 1,
-    "record_ids": [
-      "39se3-pv194"
-    ]
+    "record_ids": ["39se3-pv194"]
   },
   {
     "projectID": "GX19-26854X",
@@ -2587,9 +2160,7 @@
       "en": "Concert of lipids, ions, and proteins in cell membrane dynamics and function"
     },
     "occurrences": 1,
-    "record_ids": [
-      "h2kj8-7df02"
-    ]
+    "record_ids": ["h2kj8-7df02"]
   },
   {
     "projectID": "GX20-08633X",
@@ -2599,9 +2170,7 @@
       "en": "ÅrchitectRonics of Two-dimensional crystals via synergy of chiral electro-chemical and opto-electronic concepts on Å-scale"
     },
     "occurrences": 1,
-    "record_ids": [
-      "66b2m-xgk50"
-    ]
+    "record_ids": ["66b2m-xgk50"]
   },
   {
     "projectID": "GX20-08633X",
@@ -2612,9 +2181,7 @@
       "cs": "ÅrchitektRonika dvoudimenzionálních krystalů se synergií chirálních elektrochemických a optoelektronických konceptů na Å- škále"
     },
     "occurrences": 1,
-    "record_ids": [
-      "7nrq7-mqe46"
-    ]
+    "record_ids": ["7nrq7-mqe46"]
   },
   {
     "projectID": "GX20-08633X",
@@ -2625,9 +2192,7 @@
       "cs": "ÅrchitektRonika dvoudimenzionálních krystalů se synergií chirálních elektrochemických a optoelektronických konceptů na Å- škále"
     },
     "occurrences": 1,
-    "record_ids": [
-      "avcx3-w3h61"
-    ]
+    "record_ids": ["avcx3-w3h61"]
   },
   {
     "projectID": "GX20-08633X",
@@ -2637,9 +2202,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xem98-gkm45"
-    ]
+    "record_ids": ["xem98-gkm45"]
   },
   {
     "projectID": "GX21-26601X",
@@ -2649,9 +2212,7 @@
       "en": "Probing and Transforming Matter by Electrons in Liquid Jets"
     },
     "occurrences": 1,
-    "record_ids": [
-      "e7zmy-cf354"
-    ]
+    "record_ids": ["e7zmy-cf354"]
   },
   {
     "projectID": "ID34F57",
@@ -2661,9 +2222,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "7n287-zc761"
-    ]
+    "record_ids": ["7n287-zc761"]
   },
   {
     "projectID": "IZSEZ0 229176",
@@ -2673,9 +2232,7 @@
       "en": "Benchmark Evolution Analysis"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nx4g1-x9m42"
-    ]
+    "record_ids": ["nx4g1-x9m42"]
   },
   {
     "projectID": "KR 4866/11-1",
@@ -2685,9 +2242,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "bacck-32r88"
-    ]
+    "record_ids": ["bacck-32r88"]
   },
   {
     "projectID": "LK-CR-2024-CLIM-R1",
@@ -2697,9 +2252,7 @@
       "en": "Climate Variability and Temperature Patterns in the Liberec Region: Jizerka Case Study 2024"
     },
     "occurrences": 1,
-    "record_ids": [
-      "98bq1-qw364"
-    ]
+    "record_ids": ["98bq1-qw364"]
   },
   {
     "projectID": "LL2101",
@@ -2709,9 +2262,7 @@
       "en": "Next Generation of 2D Monoelemental Materials"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bacck-32r88"
-    ]
+    "record_ids": ["bacck-32r88"]
   },
   {
     "projectID": "LM2011033",
@@ -2722,9 +2273,7 @@
       "cs": "Zabezpečení účasti ČR v iniciative PRACE a přístupu akademické obce a průmyslu ČR k HPC prostředkům na evropské úrovni"
     },
     "occurrences": 1,
-    "record_ids": [
-      "x865h-50c87"
-    ]
+    "record_ids": ["x865h-50c87"]
   },
   {
     "projectID": "LM2015062",
@@ -2734,9 +2283,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xxzmr-kk127"
-    ]
+    "record_ids": ["xxzmr-kk127"]
   },
   {
     "projectID": "LM2018110",
@@ -2746,9 +2293,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "sn1dn-tmm57"
-    ]
+    "record_ids": ["sn1dn-tmm57"]
   },
   {
     "projectID": "LM2018129",
@@ -2758,9 +2303,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xxzmr-kk127"
-    ]
+    "record_ids": ["xxzmr-kk127"]
   },
   {
     "projectID": "LM2018131",
@@ -2770,9 +2313,7 @@
       "en": "ELIXIR CZ Research Infrastructure"
     },
     "occurrences": 1,
-    "record_ids": [
-      "tbws0-hj147"
-    ]
+    "record_ids": ["tbws0-hj147"]
   },
   {
     "projectID": "LM2018131",
@@ -2783,9 +2324,7 @@
       "cs": "Česká národní infrastruktura pro biologická data (ELIXIR-CZ)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "wymq1-0zz78"
-    ]
+    "record_ids": ["wymq1-0zz78"]
   },
   {
     "projectID": "LM2018140",
@@ -2795,9 +2334,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "cd6zk-k0v44"
-    ]
+    "record_ids": ["cd6zk-k0v44"]
   },
   {
     "projectID": "LM2018140",
@@ -2807,9 +2344,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xxzmr-kk127"
-    ]
+    "record_ids": ["xxzmr-kk127"]
   },
   {
     "projectID": "LM2018140",
@@ -2819,9 +2354,7 @@
       "en": "e-infrastruktura CZ"
     },
     "occurrences": 1,
-    "record_ids": [
-      "t45hr-bcw17"
-    ]
+    "record_ids": ["t45hr-bcw17"]
   },
   {
     "projectID": "LM2023038",
@@ -2832,9 +2365,7 @@
       "cs": "Jihočeské výzkumné centrum akvakultury a biodiverzity hydrocenóz"
     },
     "occurrences": 1,
-    "record_ids": [
-      "brt01-qxj73"
-    ]
+    "record_ids": ["brt01-qxj73"]
   },
   {
     "projectID": "LM2023048",
@@ -2844,9 +2375,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "4xefe-csd45"
-    ]
+    "record_ids": ["4xefe-csd45"]
   },
   {
     "projectID": "LM2023048",
@@ -2856,9 +2385,7 @@
       "en": "CzeCOS"
     },
     "occurrences": 1,
-    "record_ids": [
-      "4y0sy-qh735"
-    ]
+    "record_ids": ["4y0sy-qh735"]
   },
   {
     "projectID": "LM2023048",
@@ -2868,9 +2395,7 @@
       "en": "CzeCOS – Czech Carbon Observation System"
     },
     "occurrences": 1,
-    "record_ids": [
-      "xkadt-0cb92"
-    ]
+    "record_ids": ["xkadt-0cb92"]
   },
   {
     "projectID": "LM2023050",
@@ -2880,9 +2405,7 @@
       "en": "National Infrastructure for Biological and Medical Imaging"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6374g-wmk43"
-    ]
+    "record_ids": ["6374g-wmk43"]
   },
   {
     "projectID": "LM2023050",
@@ -2892,9 +2415,7 @@
       "en": "Czech-BioImaging large RI"
     },
     "occurrences": 1,
-    "record_ids": [
-      "wmbbb-xhc25"
-    ]
+    "record_ids": ["wmbbb-xhc25"]
   },
   {
     "projectID": "LM2023051",
@@ -2904,9 +2425,7 @@
       "en": "Research infrastructure CzechNanoLab"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bacck-32r88"
-    ]
+    "record_ids": ["bacck-32r88"]
   },
   {
     "projectID": "LM2023054",
@@ -2916,9 +2435,7 @@
       "en": "E-INFRASTRUKTURA CZ"
     },
     "occurrences": 1,
-    "record_ids": [
-      "a42vc-pav63"
-    ]
+    "record_ids": ["a42vc-pav63"]
   },
   {
     "projectID": "LM2023054",
@@ -2928,9 +2445,7 @@
       "en": "e-Infrastruktura CZ"
     },
     "occurrences": 1,
-    "record_ids": [
-      "df023-eya04"
-    ]
+    "record_ids": ["df023-eya04"]
   },
   {
     "projectID": "LM2023066",
@@ -2940,9 +2455,7 @@
       "en": "Nanomaterials and Nanotechnologies for Environment Protection and Sustainable Future"
     },
     "occurrences": 1,
-    "record_ids": [
-      "mff4d-q4a24"
-    ]
+    "record_ids": ["mff4d-q4a24"]
   },
   {
     "projectID": "LQ20040220",
@@ -2952,9 +2465,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "hc3hz-wz038"
-    ]
+    "record_ids": ["hc3hz-wz038"]
   },
   {
     "projectID": "LQ200402201",
@@ -2964,9 +2475,7 @@
       "en": "Tunable Electrochemistry of Two-Dimensional Semiconductors"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bacck-32r88"
-    ]
+    "record_ids": ["bacck-32r88"]
   },
   {
     "projectID": "LQ200402201",
@@ -2977,9 +2486,7 @@
       "cs": "Laditelná elektrochemie dvou-dimenzionálních polovodičů"
     },
     "occurrences": 1,
-    "record_ids": [
-      "avcx3-w3h61"
-    ]
+    "record_ids": ["avcx3-w3h61"]
   },
   {
     "projectID": "LQ200402201",
@@ -2989,9 +2496,7 @@
       "en": "Tunable Electrochemistry of Two-Dimensional Semiconductors"
     },
     "occurrences": 1,
-    "record_ids": [
-      "tgf5z-9fv07"
-    ]
+    "record_ids": ["tgf5z-9fv07"]
   },
   {
     "projectID": "LQ200402201",
@@ -3001,9 +2506,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "xem98-gkm45"
-    ]
+    "record_ids": ["xem98-gkm45"]
   },
   {
     "projectID": "LTARF18021",
@@ -3013,9 +2516,7 @@
       "en": "Development of technologies for early detection of tick borne encephalitis, based on changes in gene expression and protein production in infected antigen-presenting cells"
     },
     "occurrences": 1,
-    "record_ids": [
-      "1bh26-ndw33"
-    ]
+    "record_ids": ["1bh26-ndw33"]
   },
   {
     "projectID": "LTAUSA19001",
@@ -3025,9 +2526,7 @@
       "en": "Multimodal sensors based on 2-D materials"
     },
     "occurrences": 1,
-    "record_ids": [
-      "tgf5z-9fv07"
-    ]
+    "record_ids": ["tgf5z-9fv07"]
   },
   {
     "projectID": "LUC23023",
@@ -3037,9 +2536,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "4xefe-csd45"
-    ]
+    "record_ids": ["4xefe-csd45"]
   },
   {
     "projectID": "LUC23023",
@@ -3049,9 +2546,7 @@
       "en": "A step towards advanced forest inventory through laser scanning and 3D modelling. Can field surveys be minimized?"
     },
     "occurrences": 1,
-    "record_ids": [
-      "xkadt-0cb92"
-    ]
+    "record_ids": ["xkadt-0cb92"]
   },
   {
     "projectID": "LX22NPO5102",
@@ -3061,9 +2556,7 @@
       "en": "National Institute for Cancer Research"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nqzqa-4nz46"
-    ]
+    "record_ids": ["nqzqa-4nz46"]
   },
   {
     "projectID": "MTA-24-08",
@@ -3073,9 +2566,7 @@
       "en": "Integrated platform for simultaneous single molecule charge transport and thermoelectric measurements"
     },
     "occurrences": 1,
-    "record_ids": [
-      "jtw08-mz650"
-    ]
+    "record_ids": ["jtw08-mz650"]
   },
   {
     "projectID": "MUNI/A/1421/2022",
@@ -3086,9 +2577,7 @@
       "cs": "Vývoj metod a instrumentace pro analýzu biologicky významných látek 2023"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y46b5-08w45"
-    ]
+    "record_ids": ["y46b5-08w45"]
   },
   {
     "projectID": "MUNI/A/1539/2021",
@@ -3099,9 +2588,7 @@
       "cs": "Vývoj metod a instrumentace pro analýzu biologicky významných látek 2022"
     },
     "occurrences": 1,
-    "record_ids": [
-      "y46b5-08w45"
-    ]
+    "record_ids": ["y46b5-08w45"]
   },
   {
     "projectID": "MUNI/A/1559/2023",
@@ -3112,9 +2599,7 @@
       "cs": "Výzvy v neuroonkologii: molekulární mechanismy a biomarkery"
     },
     "occurrences": 1,
-    "record_ids": [
-      "07r8s-r5w86"
-    ]
+    "record_ids": ["07r8s-r5w86"]
   },
   {
     "projectID": "MUNI/A/1648/2024",
@@ -3124,9 +2609,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "4xefe-csd45"
-    ]
+    "record_ids": ["4xefe-csd45"]
   },
   {
     "projectID": "MUNI/A/1921/2025",
@@ -3136,9 +2619,7 @@
       "en": "Geographic syntheses - connecting spatial perspectives, processes, and data (SYNGEO)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "xkadt-0cb92"
-    ]
+    "record_ids": ["xkadt-0cb92"]
   },
   {
     "projectID": "NAISS 2025-5-140",
@@ -3148,9 +2629,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "8x58q-10t28"
-    ]
+    "record_ids": ["8x58q-10t28"]
   },
   {
     "projectID": "NATURE-ETN, H2020-MSCA-ITN-2019-861381",
@@ -3160,9 +2639,7 @@
       "en": "Marie Skłodowska-Curie Innovative Training Network (ITN)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "3ehnn-7en38"
-    ]
+    "record_ids": ["3ehnn-7en38"]
   },
   {
     "projectID": "NT13897",
@@ -3173,9 +2650,7 @@
       "cs": "Animální a humánní serotonergní model schizofrenie: validita hodnocená pomocí qEEG a fMRI"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6xg18-hs056"
-    ]
+    "record_ids": ["6xg18-hs056"]
   },
   {
     "projectID": "NT13897-4/2012",
@@ -3186,9 +2661,7 @@
       "cs": "Animální a humánní serotonergní model schizofrenie: validita hodnocená pomocí qEEG a fMRI"
     },
     "occurrences": 1,
-    "record_ids": [
-      "a11r8-v8237"
-    ]
+    "record_ids": ["a11r8-v8237"]
   },
   {
     "projectID": "NU23-09-00369",
@@ -3199,9 +2672,7 @@
       "cs": "Sestrou koordinovaná komplexní edukace pacientů se stabilní ischemickou chorobou srdeční"
     },
     "occurrences": 1,
-    "record_ids": [
-      "fdm23-53006"
-    ]
+    "record_ids": ["fdm23-53006"]
   },
   {
     "projectID": "NU23-09-00369",
@@ -3212,9 +2683,7 @@
       "cs": "Sestrou koordinovaná komplexní edukace při stabilní ischemické chorobě srdeční"
     },
     "occurrences": 1,
-    "record_ids": [
-      "d1erq-2tq82"
-    ]
+    "record_ids": ["d1erq-2tq82"]
   },
   {
     "projectID": "NU23-09-00369",
@@ -3225,9 +2694,7 @@
       "cs": "Sestrou koordinovaná komplexní edukace pacientů se stabilní ischemickou chorobou srdeční"
     },
     "occurrences": 1,
-    "record_ids": [
-      "qmsf4-afb51"
-    ]
+    "record_ids": ["qmsf4-afb51"]
   },
   {
     "projectID": "NV18-04-00159",
@@ -3238,9 +2705,7 @@
       "cs": "Využití pokročilých magneticko-rezonančních technik k odhalení patofyziologie a zlepšení diagnostiky a praktického managementu degenerativní komprese krční míchy"
     },
     "occurrences": 1,
-    "record_ids": [
-      "xxzmr-kk127"
-    ]
+    "record_ids": ["xxzmr-kk127"]
   },
   {
     "projectID": "NW24-08-00157",
@@ -3251,9 +2716,7 @@
       "cs": "Využití 3D modelu cerebrálních organoidů pro objasnění mechanismů rezistence léčby a rozvoje recidivy u glioblastomu"
     },
     "occurrences": 1,
-    "record_ids": [
-      "wyeg6-8ax97"
-    ]
+    "record_ids": ["wyeg6-8ax97"]
   },
   {
     "projectID": "NW24-09-00302",
@@ -3264,9 +2727,7 @@
       "cs": "Zdravotní gramotnost vybrané dětské populace v oblasti prevence infekčních onemocnění – možnosti působení sester v primární péči"
     },
     "occurrences": 1,
-    "record_ids": [
-      "qv68r-e2695"
-    ]
+    "record_ids": ["qv68r-e2695"]
   },
   {
     "projectID": "Praemium Academiae",
@@ -3276,9 +2737,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "dv2m5-vc204"
-    ]
+    "record_ids": ["dv2m5-vc204"]
   },
   {
     "projectID": "Praemium Academiae - 2021 - Patrik Španěl",
@@ -3288,9 +2747,7 @@
       "en": "Praemium Academiae"
     },
     "occurrences": 1,
-    "record_ids": [
-      "zkt15-an280"
-    ]
+    "record_ids": ["zkt15-an280"]
   },
   {
     "projectID": "QK1910150",
@@ -3300,9 +2757,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "4xefe-csd45"
-    ]
+    "record_ids": ["4xefe-csd45"]
   },
   {
     "projectID": "SFB-1415-417590517",
@@ -3312,9 +2767,7 @@
       "en": "Chemistry of Synthetic 2D Materials"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bacck-32r88"
-    ]
+    "record_ids": ["bacck-32r88"]
   },
   {
     "projectID": "SGSFChT_2024_003",
@@ -3324,9 +2777,7 @@
       "en": "Specific university research"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8vy4e-y1096"
-    ]
+    "record_ids": ["8vy4e-y1096"]
   },
   {
     "projectID": "SGS_2024_003",
@@ -3336,9 +2787,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "s6k7h-fgk25"
-    ]
+    "record_ids": ["s6k7h-fgk25"]
   },
   {
     "projectID": "SGS_2025_002",
@@ -3348,9 +2797,7 @@
       "en": "Specific university research"
     },
     "occurrences": 1,
-    "record_ids": [
-      "6vgqs-qj573"
-    ]
+    "record_ids": ["6vgqs-qj573"]
   },
   {
     "projectID": "SS02030031",
@@ -3360,9 +2807,7 @@
       "en": "Air Quality Research Assessment and Monitoring Integrated System"
     },
     "occurrences": 1,
-    "record_ids": [
-      "b6as3-v2y27"
-    ]
+    "record_ids": ["b6as3-v2y27"]
   },
   {
     "projectID": "SS02030031",
@@ -3373,9 +2818,7 @@
       "cs": "Integrovaný systém výzkumu, hodnocení a kontroly kvality ovzduší (ARAMIS)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bf6s2-5tq48"
-    ]
+    "record_ids": ["bf6s2-5tq48"]
   },
   {
     "projectID": "SS02030031",
@@ -3385,9 +2828,7 @@
       "en": "Air Quality Research Assessment and Monitoring Integrated System (ARAMIS)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "htg6v-2vn44"
-    ]
+    "record_ids": ["htg6v-2vn44"]
   },
   {
     "projectID": "SS02030031",
@@ -3397,9 +2838,7 @@
       "en": "Air quality Research, Assessment and Monitoring Integrated System (ARAMIS)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nwh2j-tbh43"
-    ]
+    "record_ids": ["nwh2j-tbh43"]
   },
   {
     "projectID": "SS06020091",
@@ -3410,9 +2849,7 @@
       "cs": "Vývoj pokročilé technologie pro odstraňování léčiv a dalších mikropolutantů z odpadních vod produkovaných zdravotnickými zařízeními"
     },
     "occurrences": 1,
-    "record_ids": [
-      "62ffk-4fd78"
-    ]
+    "record_ids": ["62ffk-4fd78"]
   },
   {
     "projectID": "SS06020091",
@@ -3423,9 +2860,7 @@
       "cs": "Vývoj pokročilé technologie pro odstraňování léčiv a dalších mikropolutantů z odpadních vod produkovaných zdravotnickými zařízeními"
     },
     "occurrences": 1,
-    "record_ids": [
-      "d4zx3-p8572"
-    ]
+    "record_ids": ["d4zx3-p8572"]
   },
   {
     "projectID": "SVV-2023-260716",
@@ -3435,9 +2870,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "66b2m-xgk50"
-    ]
+    "record_ids": ["66b2m-xgk50"]
   },
   {
     "projectID": "SVV-260790",
@@ -3447,9 +2880,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "dd436-6cm66"
-    ]
+    "record_ids": ["dd436-6cm66"]
   },
   {
     "projectID": "TA04020797",
@@ -3459,9 +2890,7 @@
       "en": "Advanced emission processor utilizing new data sources"
     },
     "occurrences": 1,
-    "record_ids": [
-      "bf6s2-5tq48"
-    ]
+    "record_ids": ["bf6s2-5tq48"]
   },
   {
     "projectID": "TH80020003",
@@ -3471,9 +2900,7 @@
       "en": "High Sensitive Wideband Graphene Ultrasonic Transducers"
     },
     "occurrences": 1,
-    "record_ids": [
-      "nwpfz-nzw77"
-    ]
+    "record_ids": ["nwpfz-nzw77"]
   },
   {
     "projectID": "TL05000543",
@@ -3484,9 +2911,7 @@
       "cs": "Brain circulation jako pilíř možné transformace strukturálně postiženého regionu (2021-2023, TA0/TL)"
     },
     "occurrences": 1,
-    "record_ids": [
-      "zz3bk-nth30"
-    ]
+    "record_ids": ["zz3bk-nth30"]
   },
   {
     "projectID": "TN02000020",
@@ -3496,9 +2921,7 @@
       "en": "Centre of Advanced Electron and Photonic Optics"
     },
     "occurrences": 1,
-    "record_ids": [
-      "8n8wk-52567"
-    ]
+    "record_ids": ["8n8wk-52567"]
   },
   {
     "projectID": "TN02000069",
@@ -3508,9 +2931,7 @@
       "en": "National centre of competence for Materials, Advanced Technologies, Coatings and their Applications"
     },
     "occurrences": 1,
-    "record_ids": [
-      "mff4d-q4a24"
-    ]
+    "record_ids": ["mff4d-q4a24"]
   },
   {
     "projectID": "TQ03000323",
@@ -3521,9 +2942,7 @@
       "cs": "Vývoj akreditovaných metodik pro hodnocení kvality vody prostřednictvím  molekulárně-genetických metod"
     },
     "occurrences": 1,
-    "record_ids": [
-      "7zec4-b1025"
-    ]
+    "record_ids": ["7zec4-b1025"]
   },
   {
     "projectID": "TQ03000388",
@@ -3534,9 +2953,7 @@
       "cs": "Technologie pro eliminaci vedlejších produktů dezinfekce umožňující recyklaci pracích vod z pískových filtrů v plaveckých bazénech"
     },
     "occurrences": 1,
-    "record_ids": [
-      "kwvzm-1ka16"
-    ]
+    "record_ids": ["kwvzm-1ka16"]
   },
   {
     "projectID": "TQ03000856",
@@ -3547,9 +2964,7 @@
       "cs": "Optimalizace procesu denitrifikace a post denitrifikace z hlediska eliminace tvorby dusitanů a oxidů dusíku"
     },
     "occurrences": 1,
-    "record_ids": [
-      "n11h8-fqd27"
-    ]
+    "record_ids": ["n11h8-fqd27"]
   },
   {
     "projectID": "asdasasfwagaw",
@@ -3559,9 +2974,7 @@
       "en": ""
     },
     "occurrences": 1,
-    "record_ids": [
-      "qnzz0-z3856"
-    ]
+    "record_ids": ["qnzz0-z3856"]
   },
   {
     "projectID": "dkd 1122",
@@ -3572,9 +2985,7 @@
       "cs": "nevím"
     },
     "occurrences": 1,
-    "record_ids": [
-      "c2tqs-3v929"
-    ]
+    "record_ids": ["c2tqs-3v929"]
   },
   {
     "projectID": "kdo projekut",
@@ -3584,8 +2995,6 @@
       "en": "cep xyz"
     },
     "occurrences": 1,
-    "record_ids": [
-      "jq4sb-d9s97"
-    ]
+    "record_ids": ["jq4sb-d9s97"]
   }
 ]
