@@ -258,6 +258,7 @@ def compute_checksum(
     """
     For each chunk, compute md5, sha256, sha512 and return as tuples"""
     ret = []
+    response = None
     total_md5 = hashlib.md5()
 
     try:
@@ -304,7 +305,6 @@ def compute_checksum(
                     )
                 )
                 size += chunk_size
-
             if size != expected_size:
                 raise ValueError(
                     f"Expected size for {s3_path} {expected_size}, got {size}"
@@ -313,6 +313,14 @@ def compute_checksum(
     except Exception as e:
         click.secho(f"        Failed to compute checksum for {s3_path}: {e}", fg="red")
         return None
+    finally:
+        if response is not None:
+            try:
+                response.close()
+            except Exception as e:
+                click.secho(
+                    f"        Failed to close response for {s3_path}: {e}", fg="red"
+                )
 
 
 def compute_saved_checksum(stream, expected_size):
@@ -414,6 +422,10 @@ def upload_single_file(
             file_key,
             object_stream,
         )
+        try:
+            object_stream.close()
+        except:
+            pass
     committed_record = record_from_result(
         record_service.draft_files.commit_file(
             system_identity, draft_record["id"], file_key

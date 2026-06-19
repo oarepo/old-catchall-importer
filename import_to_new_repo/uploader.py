@@ -1,3 +1,4 @@
+import gc
 import os
 
 import boto3
@@ -25,6 +26,9 @@ class SizedStreamReader:
                 break
             remaining -= len(chunk)
             yield chunk
+        self._stream = (
+            None  # sever reference so resp.request.body doesn't keep stream alive
+        )
 
 
 def upload_single_part(args):
@@ -32,9 +36,10 @@ def upload_single_part(args):
     # this is a standalone function so that it can be called with a multiprocessing pool
 
     for current_try in range(3):
+        old_catchall_s3 = None
+        object_stream = None
+        resp = None
         try:
-            old_catchall_bucket_name = os.getenv("OLD_CATCHALL_S3_BUCKET_NAME")
-
             old_catchall_s3 = boto3.client(
                 "s3",
                 aws_access_key_id=os.getenv("OLD_CATCHALL_S3_ACCESS_KEY"),
@@ -43,7 +48,7 @@ def upload_single_part(args):
             )
 
             response = old_catchall_s3.get_object(
-                Bucket=old_catchall_bucket_name,
+                Bucket=os.getenv("OLD_CATCHALL_S3_BUCKET_NAME"),
                 Key=s3_path,
                 Range=f"bytes={stream_start_pos}-{stream_start_pos + chunk_size - 1}",
             )
@@ -54,6 +59,7 @@ def upload_single_part(args):
                 data=SizedStreamReader(object_stream, chunk_size),
                 headers={"Content-MD5": part_md5},
             )
+
             if resp.status_code != 200:
                 click.secho(
                     f"    Failed to upload part: {resp.status_code} {resp.text}",
@@ -67,6 +73,24 @@ def upload_single_part(args):
             if current_try == 2:
                 click.secho("    Giving up after 3 attempts", fg="red")
                 raise RuntimeError(str(e))
-            else:
-                click.secho(f"    Retrying... ({current_try + 1}/3)", fg="yellow")
-                continue
+            click.secho(f"    Retrying... ({current_try + 1}/3)", fg="yellow")
+        finally:
+            if object_stream is not None:
+                try:
+                    object_stream.close()
+                except Exception:
+                    pass
+            if old_catchall_s3 is not None:
+                try:
+                    old_catchall_s3.close()
+                except Exception:
+                    pass
+            if resp is not None:
+                try:
+                    resp.close()
+                except Exception:
+                    pass
+            object_stream = None
+            old_catchall_s3 = None
+            resp = None
+            gc.collect()
