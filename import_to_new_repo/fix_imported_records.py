@@ -9,6 +9,9 @@ from invenio_rdm_records.services.services import RDMRecordService
 from oarepo_runtime import current_runtime
 from oarepo_runtime.typing import record_from_result
 
+# add the directory of the file to the python path, so that we can import from import_to_new_repo
+sys.path.append(str(Path(__file__).parent.parent))
+
 from import_to_new_repo.records import (
     load_records_to_memory,
     prepare_record,
@@ -19,9 +22,13 @@ def fix_record_metadata(identifier: str, fixed_metadata: dict):
     record_service: RDMRecordService = cast(
         "RDMRecordService", current_runtime.models["datasets"].service
     )
+    click.secho(f"Fixing record {identifier}", fg="green")
 
     # make sure that the record exists and is not deleted
-    record_service.read(identity=system_identity, id_=identifier)
+    try:
+        record_service.read(identity=system_identity, id_=identifier)
+    except:
+        raise RuntimeError(f"Published record {identifier} not found or deleted")
 
     # get the draft and update its metadata
     draft_record = record_service.edit(
@@ -71,7 +78,7 @@ def fix_imported_records(records_dir: str, identifiers_to_fix: list[str]):
         try:
             fix_record_metadata(record["id"], record["metadata"])
         except Exception as e:
-            print(f"Failed to fix record {record['id']}: {e}")
+            click.secho(f"   Failed to fix record {record['id']}: {e}", fg="red")
 
 
 if __name__ == "__main__":
@@ -79,7 +86,5 @@ if __name__ == "__main__":
         current_app.config.get("test")
     except:  # noqa E722
         raise Exception("This file needs to be run via invenio shell")
-    # add the directory of the file to the python path, so that we can import from import_to_new_repo
-    sys.path.append(str(Path(__file__).parent.parent))
 
     fix_imported_records(sys.argv[1], sys.argv[2:])
