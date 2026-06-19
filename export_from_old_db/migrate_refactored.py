@@ -1087,8 +1087,9 @@ class RecordDataConverter:
     def build_publisher(self):
         """publisher is just a single string in the target."""
         pubs = self.nr.get("publisher")
-        if isinstance(pubs, list) and pubs:  # TODO: CCMM allows only one publisher
-            pn = pubs[0]["slug"]  # TODO: person_or_org to str mapping required
+        if isinstance(pubs, list) and pubs: # TODO: CCMM allows only one publisher
+            assert "fullName" in pubs[0]
+            pn = pubs[0]["fullName"] # TODO: person_or_org to str mapping required
             self.metadata["publisher"] = pn
         elif isinstance(pubs, str):
             self.metadata["publisher"] = pubs
@@ -1387,7 +1388,7 @@ class RecordDataConverter:
             else:
                 assert False, f"Unexpected type for keyword: {type(kw)}"
             del self.nr.get("keywords")[idx]
-        self._add_to_metadata("subjects", {"subject": text for text in keywords_set})
+        self._add_to_metadata("subjects", [{"subject": text} for text in keywords_set])
 
     def build_record(self):
         """Non-metadata parts of the record: access, state, files."""
