@@ -87,6 +87,10 @@ def fix_imported_records(records_dir: str, identifiers_to_fix: list[str]):
         prepare_record(record)
 
     for record in records:
+        if record["is_draft"]:
+            click.secho(f"SKIPPED-DRAFT: {record['id']}", fg="yellow")
+            continue
+
         try:
             fix_record_metadata(record["id"], record["metadata"])
         except Exception as e:
