@@ -1,4 +1,5 @@
 import sys
+import traceback
 from pathlib import Path
 from typing import cast
 
@@ -30,10 +31,21 @@ def fix_record_metadata(identifier: str, fixed_metadata: dict):
     except:
         raise RuntimeError(f"Published record {identifier} not found or deleted")
 
+    # check if there is a draft record (maybe from the last run)
+    draft_record = None
+    try:
+        draft_record = record_service.read_draft(
+            identity=system_identity, id_=identifier
+        ).to_dict()
+    except Exception:
+        pass
+
     # get the draft and update its metadata
-    draft_record = record_service.edit(
-        identity=system_identity, id_=identifier
-    ).to_dict()
+    if draft_record is None:
+        # no draft found, create a new one
+        draft_record = record_service.edit(
+            identity=system_identity, id_=identifier
+        ).to_dict()
 
     draft_metadata = draft_record["metadata"]
 
@@ -79,6 +91,7 @@ def fix_imported_records(records_dir: str, identifiers_to_fix: list[str]):
             fix_record_metadata(record["id"], record["metadata"])
         except Exception as e:
             click.secho(f"   Failed to fix record {record['id']}: {e}", fg="red")
+            traceback.print_exc()
 
 
 if __name__ == "__main__":
